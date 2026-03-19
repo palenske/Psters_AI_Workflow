@@ -18,14 +18,11 @@ Apply `skills/using-psters-workflow/SKILL.md` at start.
 
 ---
 
-## ⚠️ Subagent Invocation (REQUIRED)
+## ⚠️ Agent Execution (REQUIRED)
 
-All agents must be invoked via the Task tool (`subagent_type: generalPurpose`). Do not simulate or inline the agent's work. For each agent, instruct it to **read its agent file** and execute with the given input.
+**Windsurf Adaptation**: This workflow executes agents by reading their instruction files and applying them directly. Windsurf does not use the Task tool from Cursor.
 
-Use collision-safe agent naming in prompts:
-- `psters-ai-workflow:research:<agent-name>`
-- `psters-ai-workflow:review:<agent-name>`
-- `psters-ai-workflow:workflow:<agent-name>`
+For each agent, **read its agent file** and execute the instructions with the given input. You can read multiple agent files in parallel to optimize performance.
 
 | Agent | File path |
 |-------|-----------|
@@ -60,24 +57,73 @@ Use preset `qualityProfile` guidance:
 
 ## 1. Research
 
-### Round 1 — Always (spawn all in parallel via Task tool, `subagent_type: generalPurpose`):
+### Round 1 — Always (execute all research agents):
 
-- **repo-research-analyst** — maps file paths, services, DTOs, entities, rules, existing enums, current migration state for the affected area
-- **learnings-researcher** — surfaces relevant solutions from `docs/solutions/`
-- **spec-flow-analyzer** — finds missing flows, edge cases, error states; produces Given/When/Then acceptance criteria and tasks to add
+Execute the following agents by reading and applying their instructions:
 
-### Round 2 — Conditional (spawn applicable in parallel via Task tool, `subagent_type: generalPurpose`):
+1. **repo-research-analyst** (`agents/research/repo-research-analyst.md`)
+   - Purpose: Maps file paths, services, DTOs, entities, rules, existing enums, current migration state for the affected area
+   - Input: Feature description, affected modules/areas
+   - Output: Concrete file paths, existing patterns, migration state
 
-- **migration-impact-planner** — spawn if entity changes detected (new columns, entities, indexes, FK constraints, enum changes)
-- **best-practices-researcher** — spawn if the feature involves security, payments, or new third-party integrations
-- **framework-docs-researcher** — spawn if the feature requires unfamiliar framework patterns
-- **git-history-analyzer** — spawn for legacy/refactor work where historical intent matters
+2. **learnings-researcher** (`agents/research/learnings-researcher.md`)
+   - Purpose: Surfaces relevant solutions from `docs/solutions/`
+   - Input: Feature description, technical domain
+   - Output: Applicable patterns, previous solutions, best practices
 
-### Round 3 — Review (spawn applicable in parallel via Task tool, `subagent_type: generalPurpose`):
+3. **spec-flow-analyzer** (`agents/workflow/spec-flow-analyzer.md`)
+   - Purpose: Finds missing flows, edge cases, error states; produces Given/When/Then acceptance criteria
+   - Input: Feature requirements
+   - Output: Acceptance criteria and tasks to add
 
-- **architecture-strategist** — always: structural approach, module boundaries, dependency direction
-- **security-sentinel** — only if auth, secrets, permissions, encryption, or file upload involved
-- **performance-oracle** — only if DB-heavy (new queries, pagination, indexes, N+1 risks)
+**Execution**: Read all three agent files and execute their instructions with the provided context. You can read multiple files in parallel.
+
+### Round 2 — Conditional (execute applicable agents):
+
+Execute the following agents when applicable by reading and applying their instructions:
+
+1. **migration-impact-planner** (`agents/research/migration-impact-planner.md`)
+   - Condition: Execute if entity changes detected (new columns, entities, indexes, FK constraints, enum changes)
+   - Input: Entity changes, current schema state
+   - Output: Migration strategy, risks, atomic chain requirements
+
+2. **best-practices-researcher** (`agents/research/best-practices-researcher.md`)
+   - Condition: Execute if the feature involves security, payments, or new third-party integrations
+   - Input: Feature scope, integration requirements
+   - Output: Security patterns, integration best practices
+
+3. **framework-docs-researcher** (`agents/research/framework-docs-researcher.md`)
+   - Condition: Execute if the feature requires unfamiliar framework patterns
+   - Input: Framework/library requirements
+   - Output: Framework-specific patterns and conventions
+
+4. **git-history-analyzer** (`agents/research/git-history-analyzer.md`)
+   - Condition: Execute for legacy/refactor work where historical intent matters
+   - Input: Files to analyze, refactor scope
+   - Output: Historical context, previous decisions
+
+**Execution**: Read applicable agent files and execute their instructions. You can read multiple files in parallel.
+
+### Round 3 — Review (execute applicable agents):
+
+Execute the following review agents by reading and applying their instructions:
+
+1. **architecture-strategist** (`agents/review/architecture-strategist.md`) — **ALWAYS**
+   - Purpose: Structural approach, module boundaries, dependency direction
+   - Input: Proposed solution, existing architecture
+   - Output: Architecture feedback, structural recommendations
+
+2. **security-sentinel** (`agents/review/security-sentinel.md`)
+   - Condition: Only if auth, secrets, permissions, encryption, or file upload involved
+   - Input: Security-sensitive components
+   - Output: Security risks, mitigation strategies
+
+3. **performance-oracle** (`agents/review/performance-oracle.md`)
+   - Condition: Only if DB-heavy (new queries, pagination, indexes, N+1 risks)
+   - Input: Database operations, query patterns
+   - Output: Performance risks, optimization recommendations
+
+**Execution**: Read applicable agent files and execute their instructions. You can read multiple files in parallel.
 
 Consolidate all findings: exact file paths, method names, learnings, conventions, acceptance criteria, architecture feedback.
 
@@ -238,9 +284,9 @@ Every task MUST NOT have:
 
 After writing the plan, run a formal review loop using `plan-document-reviewer`:
 
-1. Spawn `plan-document-reviewer` with the generated plan path and relevant context summary.
+1. Read and execute `agents/workflow/plan-document-reviewer.md` with the generated plan path and relevant context summary.
 2. Apply only execution-impacting fixes (`CRITICAL`/`HIGH`) immediately.
-3. Re-run reviewer.
+3. Re-run the reviewer agent.
 4. Stop when approved or after a maximum of 3 iterations.
 
 If still not approved after 3 iterations, present open blockers explicitly and ask user for direction before execution.

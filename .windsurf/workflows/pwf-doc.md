@@ -43,18 +43,17 @@ Usage:
 
 ---
 
-## Agent invocation
+## Agent Execution
 
-When spawning docs agents via Task tool, use collision-safe naming:
-`psters-ai-workflow:docs:<agent-name>`.
+**Windsurf Adaptation**: Execute docs agents by reading their instruction files and applying them directly.
 
 ## Mode 1: `/pwf-doc lambda <repo-name>`
 
 ### Step 1: Verify repo exists
 Check that the Lambda repo exists in the workspace. If not, list available Lambda repos and ask user to pick.
 
-### Step 2: Invoke `lambda-doc-writer`
-Spawn a Task tool agent (`subagent_type: generalPurpose`) with the full `lambda-doc-writer` agent instructions, passing the repo path and any existing `docs/lambdas/<repo-name>.md`. Wait for the agent to return text.
+### Step 2: Execute `lambda-doc-writer`
+Read and execute `agents/docs/lambda-doc-writer.md` instructions, passing the repo path and any existing `docs/lambdas/<repo-name>.md`.
 
 ### Step 3: Write the doc
 - Ensure `docs/lambdas/` directory exists
@@ -68,8 +67,8 @@ Spawn a Task tool agent (`subagent_type: generalPurpose`) with the full `lambda-
 ### Step 1: Discover all Lambda repos
 Discover Lambda repos in the workspace (e.g. `*-lambda`, `*-processor` or project-specific patterns).
 
-### Step 2: Spawn all `lambda-doc-writer` agents in parallel
-Spawn one Task tool agent per Lambda repo **simultaneously**. Each returns text to orchestrator.
+### Step 2: Execute `lambda-doc-writer` for all Lambda repos
+Read and execute `agents/docs/lambda-doc-writer.md` instructions for each Lambda repo. You can process multiple repos by reading the agent file once and applying it to each repo.
 
 ### Step 3: Write all docs
 For each returned doc, write to `docs/lambdas/<repo-name>.md`. Confirm each.
@@ -84,8 +83,8 @@ Update the index table with all documented Lambdas, their pipeline position, and
 ### Step 1: Verify module exists
 Check that `backend/src/<module-name>/` (or equivalent) exists. If not, list available modules and ask user to pick.
 
-### Step 2: Invoke `backend-module-doc-writer`
-Spawn a Task tool agent (`subagent_type: generalPurpose`) with the full `backend-module-doc-writer` agent instructions, passing:
+### Step 2: Execute `backend-module-doc-writer`
+Read and execute `agents/docs/backend-module-doc-writer.md` instructions, passing:
 - Module path: `backend/src/<module-name>/`
 - Existing doc if present: `docs/modules/<module-name>.md`
 
@@ -104,8 +103,8 @@ Wait for the agent to return text.
 ### Step 1: Verify feature exists
 Check that `frontend/src/app/features/<feature-name>/` (or equivalent) exists. If not, list available features and ask user to pick.
 
-### Step 2: Invoke `frontend-feature-doc-writer`
-Spawn a Task tool agent (`subagent_type: generalPurpose`) with the full `frontend-feature-doc-writer` agent instructions, passing:
+### Step 2: Execute `frontend-feature-doc-writer`
+Read and execute `agents/docs/frontend-feature-doc-writer.md` instructions, passing:
 - Feature path: `frontend/src/app/features/<feature-name>/`
 - Existing doc if present: `docs/features/<feature-name>.md`
 
@@ -129,8 +128,8 @@ Read/update context from:
 - `docs/solutions/patterns/critical-patterns.md` (if exists)
 - recent `docs/plans/`, `docs/brainstorms/`, and ADRs in `docs/decisions/`
 
-### Step 2: Invoke dedicated docs agent
-Spawn `architecture-doc-writer` (`agents/docs/architecture-doc-writer.md`) via Task tool (`subagent_type: generalPurpose`) and pass gathered context plus existing `docs/architecture.md` (if present).
+### Step 2: Execute dedicated docs agent
+Read and execute `agents/docs/architecture-doc-writer.md` instructions and pass gathered context plus existing `docs/architecture.md` (if present).
 
 ### Step 3: Write the doc
 Write returned content to `docs/architecture.md`. Confirm.
@@ -155,8 +154,8 @@ For each doc, extract the file paths, class names, and method names it reference
 
 **Efficient approach**: Read all `docs/solutions/patterns/` and `docs/lambdas/` first (highest churn), then module and feature docs.
 
-### Step 3: Spawn `doc-shepherd` for full scan
-Spawn a Task tool agent (`subagent_type: generalPurpose`) with the full `doc-shepherd` agent instructions. Since there's no specific diff to analyze, pass:
+### Step 3: Execute `doc-shepherd` for full scan
+Read and execute `agents/workflow/doc-shepherd.md` instructions. Since there's no specific diff to analyze, pass:
 - `diff`: "Full documentation audit — no specific diff"
 - `changed_files`: all files in the codebase (summary by directory)
 - `work_summary`: "Full documentation freshness and consistency audit"
@@ -181,8 +180,8 @@ Collect decision context from user input and relevant artifacts:
 - relevant architecture/infrastructure docs,
 - any constraints from critical patterns.
 
-### Step 3: Invoke dedicated ADR agent
-Spawn `adr-writer` (`agents/docs/adr-writer.md`) via Task tool (`subagent_type: generalPurpose`) and provide:
+### Step 3: Execute dedicated ADR agent
+Read and execute `agents/docs/adr-writer.md` instructions and provide:
 - decision summary,
 - gathered context,
 - full canonical template content from `assets/adr-template.md`.
@@ -246,8 +245,8 @@ Read/update context from:
 - `docs/architecture.md`, `docs/integrations.md`, `docs/environments.md`,
 - deployment scripts and infra-related references in the repository.
 
-### Step 2: Invoke dedicated infra docs agent
-Spawn `infrastructure-doc-writer` (`agents/docs/infrastructure-doc-writer.md`) via Task tool (`subagent_type: generalPurpose`) and pass gathered context plus existing `docs/infrastructure.md` (if present).
+### Step 2: Execute dedicated infra docs agent
+Read and execute `agents/docs/infrastructure-doc-writer.md` instructions and pass gathered context plus existing `docs/infrastructure.md` (if present).
 
 ### Step 3: Write the doc
 Write returned content to `docs/infrastructure.md`. Confirm.

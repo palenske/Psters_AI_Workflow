@@ -23,15 +23,14 @@ Never recommend deleting or ignoring `docs/plans/*.md` or `docs/solutions/*.md`.
 
 ## Run Review Agents
 
-First inspect which repos/files were changed. Then spawn all applicable review agents **in parallel** using the Task tool (`subagent_type: generalPurpose`). For each, tell the subagent to read its agent file and review the provided diff + file list.
-Use collision-safe agent naming in prompts: `psters-ai-workflow:<category>:<agent-name>`.
+First inspect which repos/files were changed. Then execute all applicable review agents by reading and applying their instructions:
 
-Use the canonical mapping in `assets/review-agent-selection-mapping.md` to choose agents based on changed scope.
-Always include the baseline reviewers from the mapping.
-If reviewer feedback comments are provided as input, also run `pr-comment-resolver` (`agents/workflow/pr-comment-resolver.md`) to propose/implement fixes.
-If major TypeScript/JS changes are present, include the `lint` reviewer agent (`agents/workflow/lint.md`) in the review loop.
-
-Each Task tool call must include the full diff content and changed file list in the prompt.
+1. Read `assets/review-agent-selection-mapping.md` to choose agents based on changed scope.
+2. Always include the baseline reviewers from the mapping.
+3. If reviewer feedback comments are provided as input, also execute `pr-comment-resolver` (`agents/workflow/pr-comment-resolver.md`) to propose/implement fixes.
+4. If major TypeScript/JS changes are present, include the `lint` reviewer agent (`agents/workflow/lint.md`) in the review loop.
+5. For each selected agent, read its agent file and execute the review instructions with the full diff content and changed file list.
+6. You can read multiple agent files in parallel.
 
 ## Synthesize
 

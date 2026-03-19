@@ -32,7 +32,7 @@ Run the playbook from `assets/docs-playbook.md`:
 2. Pattern extraction check
 3. Assemble and write solution doc
 4. Optional focused reviewer validation
-5. For reusable patterns, invoke `pattern-extractor` (`agents/docs/pattern-extractor.md`) explicitly.
+5. For reusable patterns, read and execute `agents/docs/pattern-extractor.md` instructions explicitly.
 
 ## Mode 2: Pattern (`/pwf-doc-capture pattern`)
 

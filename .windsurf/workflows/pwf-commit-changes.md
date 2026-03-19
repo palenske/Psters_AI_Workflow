@@ -1,7 +1,7 @@
 ---
 name: pwf-commit-changes
 description: >
-  Commit uncommitted changes across all workspace repos, tagging commits with ticket numbers from pasted issue text. Spawns one parallel subagent per repo — each analyzes every changed file, groups them by ticket, and makes multiple focused commits independently.
+  Commit uncommitted changes across all workspace repos, tagging commits with ticket numbers from pasted issue text. Processes one worker per repo in parallel — each analyzes every changed file, groups them by ticket, and makes multiple focused commits independently.
 argument-hint: "[paste issue(s) with TICKET-XXX and metadata, or list TICKET-XXX]"
 disable-model-invocation: true
 ---
@@ -50,11 +50,11 @@ Build a list: `[{ path, name }]` of repos with uncommitted changes.
 
 ---
 
-## Phase 3 — Spawn One Subagent Per Repo (All in Parallel)
+## Phase 3 — Process One Worker Per Repo (All in Parallel)
 
-> **Skill reference:** Read `skills/commit-changes-repo-worker/SKILL.md` once before spawning subagents to understand the multi-commit worker contract.
+> **Skill reference:** Read `skills/commit-changes-repo-worker/SKILL.md` once before processing repos to understand the multi-commit worker contract.
 
-For each repo with uncommitted changes, invoke **one `generalPurpose` subagent** (model: `fast`) using the Task tool. All invocations run **simultaneously**.
+**Windsurf Adaptation**: For each repo with uncommitted changes, read and execute the worker skill instructions directly. You can process multiple repos by reading the skill file once and applying it to each repo.
 
 Use this prompt template per repo:
 

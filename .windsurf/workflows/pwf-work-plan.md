@@ -136,9 +136,11 @@ Treat this as blocking. Do not continue other tasks until the chain succeeds.
 
 **Only run if the phase changed 5+ files or touched multiple repos.** Otherwise skip to Step 4.
 
-If triggered, spawn review agents **in parallel** using the Task tool (`subagent_type: generalPurpose`). For each, tell the subagent to read its agent file and review the implementation.
-Use collision-safe agent naming in prompts: `psters-ai-workflow:<category>:<agent-name>`.
-Use the canonical mapping in `assets/review-agent-selection-mapping.md` to select agents by changed scope.
+If triggered, execute review agents by reading and applying their instructions:
+
+1. Read `assets/review-agent-selection-mapping.md` to select applicable agents based on changed scope.
+2. For each selected agent, read its agent file and execute the review instructions.
+3. You can read multiple agent files in parallel.
 
 Address **critical** findings before finishing. Informational findings are noted but don't block.
 

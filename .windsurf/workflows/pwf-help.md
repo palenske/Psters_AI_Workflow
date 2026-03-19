@@ -73,7 +73,7 @@ Use this map when the user asks how the plugin pieces connect:
 - `extensions/` — hook-based extensions for workflow lifecycle events (before/after plan, work, work-plan).
 
 Execution model in practice:
-`workflow` -> applies `rules` -> may call `skills` -> may spawn `agents` -> `extensions` provide advisory guidance at lifecycle events.
+`workflow` -> applies `rules` -> may call `skills` -> may execute `agents` -> `extensions` provide advisory guidance at lifecycle events.
 
 ## Next Recommended Commands
 

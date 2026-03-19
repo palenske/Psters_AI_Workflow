@@ -75,6 +75,6 @@ This produces clean, reviewable git history with one commit per ticket per repo.
 - **No branches** — commit on the current branch of each repo; do not create or switch branches.
 - **No push** — local commits only; remind user to push when ready.
 - **No bulk staging** — always stage specific files per commit group, never `git add -A`.
-- **Parallel subagents** — all per-repo workers run simultaneously via the Task tool.
-- **No main-agent git ops** — the main agent never runs `git add` or `git commit` directly; all git work is delegated to the per-repo subagents.
-- **Worker contract** — each subagent returns JSON: `{ repo, status, commits: [...], error }`.
+- **Parallel processing** — all per-repo workers are processed by reading the worker skill once and applying it to each repo.
+- **No main-agent git ops** — the main agent never runs `git add` or `git commit` directly; all git work is delegated to the per-repo worker logic.
+- **Worker contract** — each worker execution returns: `{ repo, status, commits: [...], error }`.

@@ -83,17 +83,29 @@ Before Step 1 execution details, resolve extension guidance for `before_work`:
    - `docs/brainstorms/` — recent brainstorm for this feature?
    - `docs/plans/` — existing plan? If work belongs to a plan phase, suggest `/pwf-work-plan` instead.
 
-4. **Spawn research agents (REQUIRED for non-trivial scope — use Task tool, `subagent_type: generalPurpose`):**
-   - **repo-research-analyst** (`agents/research/repo-research-analyst.md`) — maps file paths, existing patterns, rules, existing enums, migration state
-   - **learnings-researcher** (`agents/research/learnings-researcher.md`) — surfaces relevant solutions from `docs/solutions/`
+4. **Execute research agents (REQUIRED for non-trivial scope):**
+   
+   Execute the following agents by reading and applying their instructions:
+   
+   - **repo-research-analyst** (`agents/research/repo-research-analyst.md`)
+     - Purpose: Maps file paths, existing patterns, rules, existing enums, migration state
+     - Input: Feature description, affected modules
+     - Output: Concrete file paths, existing patterns
+   
+   - **learnings-researcher** (`agents/research/learnings-researcher.md`)
+     - Purpose: Surfaces relevant solutions from `docs/solutions/`
+     - Input: Feature description, technical domain
+     - Output: Applicable patterns, previous solutions
+   
+   Read both agent files and execute their instructions. You can read multiple files in parallel.
 
-   Spawn both **simultaneously**. Wait for both to complete.
-   Use collision-safe agent naming in prompts: `psters-ai-workflow:<category>:<agent-name>`.
-
-5. **Conditional research (spawn in parallel via Task tool if applicable, non-trivial scope):**
+5. **Conditional research (execute applicable agents, non-trivial scope):**
+   
+   Execute the following agents when applicable by reading and applying their instructions:
+   
    - Entity changes detected → **migration-impact-planner** (`agents/research/migration-impact-planner.md`)
    - Multi-step or UI flows → **spec-flow-analyzer** (`agents/workflow/spec-flow-analyzer.md`)
-   - Security, payments, new tech → **best-practices-researcher**, **framework-docs-researcher**
+   - Security, payments, new tech → **best-practices-researcher** (`agents/research/best-practices-researcher.md`), **framework-docs-researcher** (`agents/research/framework-docs-researcher.md`)
 
 6. **Present research summary to user:** Before implementing, show:
    - Files that will be changed (from research)
@@ -152,8 +164,11 @@ After all tasks:
 
 **Only run if 5+ files changed or multiple repos touched.** Otherwise skip to Step 5.
 
-If triggered, spawn review agents **in parallel** using the Task tool (`subagent_type: generalPurpose`). For each, tell the subagent to read its agent file and review the implementation.
-Use the canonical mapping in `assets/review-agent-selection-mapping.md` to select agents by changed scope.
+If triggered, execute review agents by reading and applying their instructions:
+
+1. Read `assets/review-agent-selection-mapping.md` to select applicable agents based on changed scope.
+2. For each selected agent, read its agent file and execute the review instructions.
+3. You can read multiple agent files in parallel.
 
 Address **critical** findings only. Informational findings are noted but don't block.
 

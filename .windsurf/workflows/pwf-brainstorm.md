@@ -1,7 +1,7 @@
 ---
 name: pwf-brainstorm
 description: >
-  Feature exploration and decision-making. Spawns 3 focused agents to research the feature,
+  Feature exploration and decision-making. Executes 3 focused research agents to explore the feature,
   then resolves open questions through dialogue. Output is a concise decision document — the base for /pwf-plan.
   Saves to docs/brainstorms/.
 argument-hint: "[feature idea or problem to explore]"
@@ -35,7 +35,7 @@ If the description is one vague sentence, ask one focused clarifying question be
 
 ## Phase 1: Context Loading
 
-Before spawning agents, read these directly (no agent needed):
+Before executing research agents, read these directly (no agent needed):
 
 1. `docs/solutions/patterns/critical-patterns.md` — always if it exists
 2. Recent `docs/brainstorms/` — check if there's an existing brainstorm for this topic
@@ -47,8 +47,7 @@ Consolidate: what already exists, what's been decided before.
 
 ## Phase 2: Research Agent Pack (Parallel)
 
-Spawn the core research agents **simultaneously** using the Task tool (`subagent_type: generalPurpose`). Do not wait for one before starting the next. Pass the full feature description + context from Phase 1 to each.
-Use collision-safe agent naming in prompts: `psters-ai-workflow:<category>:<agent-name>`.
+Execute the core research agents by reading and applying their instructions. Pass the full feature description + context from Phase 1 to each agent. You can read multiple agent files in parallel.
 
 ---
 
