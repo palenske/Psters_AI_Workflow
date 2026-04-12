@@ -82,14 +82,39 @@ Deep dive:
 
 ## 🚀 Quick Start
 
+### Supported Platforms
+
+| Platform | Directory | Install Command |
+|----------|-----------|-----------------|
+| **Claude Code** | `.claude/` + `.claude-plugin/` | `./scripts/install-claude-code.sh [project-path]` |
+| **Trae** | `.trae/` | `node scripts/install-workflow-bridge.mjs --to trae --project /path/to/project` |
+| **Cursor** | `plugins/` | `./scripts/install-plugin-local.sh` |
+
 ### 1) Install and start using immediately
 
-1. Install manually (Marketplace is not available yet):
-   - `./scripts/install-plugin-local.sh`
-2. Restart Cursor (or reload window).
-3. Start with:
-   - `/pwf-help` (quick orientation)
-   - `/pwf-brainstorm` or `/pwf-work` (first real task)
+**For Claude Code:**
+```bash
+./scripts/install-claude-code.sh /path/to/your/project
+```
+
+**For Trae:**
+```bash
+node scripts/install-workflow-bridge.mjs --to trae --project /path/to/your/project
+```
+
+**For Cursor:**
+```bash
+./scripts/install-plugin-local.sh
+```
+
+**Install for all platforms at once:**
+```bash
+node scripts/install-workflow-bridge.mjs --to all --project /path/to/your/project
+```
+
+After installation, restart your editor and start with:
+- `/pwf-help` (quick orientation)
+- `/pwf-brainstorm` or `/pwf-work` (first real task)
 
 ### 2) If your project is NEW
 
@@ -289,14 +314,39 @@ Aprofundar:
 
 ## 🚀 Inicio Rapido
 
+### Plataformas Suportadas
+
+| Plataforma | Diretório | Comando de Instalação |
+|------------|-----------|----------------------|
+| **Claude Code** | `.claude/` + `.claude-plugin/` | `./scripts/install-claude-code.sh [caminho-projeto]` |
+| **Trae** | `.trae/` | `node scripts/install-workflow-bridge.mjs --to trae --project /caminho/do/projeto` |
+| **Cursor** | `plugins/` | `./scripts/install-plugin-local.sh` |
+
 ### 1) Instalar e começar a usar na hora
 
-1. Instale manualmente (ainda não está no Marketplace):
-   - `./scripts/install-plugin-local.sh`
-2. Reinicie o Cursor (ou recarregue a janela).
-3. Comece com:
-   - `/pwf-help` (orientação rápida)
-   - `/pwf-brainstorm` ou `/pwf-work` (primeira task real)
+**Para Claude Code:**
+```bash
+./scripts/install-claude-code.sh /caminho/do/seu/projeto
+```
+
+**Para Trae:**
+```bash
+node scripts/install-workflow-bridge.mjs --to trae --project /caminho/do/seu/projeto
+```
+
+**Para Cursor:**
+```bash
+./scripts/install-plugin-local.sh
+```
+
+**Instalar para todas as plataformas de uma vez:**
+```bash
+node scripts/install-workflow-bridge.mjs --to all --project /caminho/do/seu/projeto
+```
+
+Após a instalação, reinicie seu editor e comece com:
+- `/pwf-help` (orientação rápida)
+- `/pwf-brainstorm` ou `/pwf-work` (primeira task real)
 
 ### 2) Se o projeto for NOVO
 
