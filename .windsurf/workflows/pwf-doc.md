@@ -52,7 +52,7 @@ Usage:
 Check that the infrastructure component exists in the workspace. If not, list available components and ask user to pick.
 
 ### Step 2: Execute `infrastructure-doc-writer`
-Read and execute `agents/docs/infrastructure-doc-writer.md` instructions, passing the component path and any existing `docs/infrastructure/<component-name>.md`.
+Read and execute `.windsurf/agents/docs/infrastructure-doc-writer.md` instructions, passing the component path and any existing `docs/infrastructure/<component-name>.md`.
 
 ### Step 3: Write the doc
 - Ensure `docs/infrastructure/` directory exists
@@ -67,7 +67,7 @@ Read and execute `agents/docs/infrastructure-doc-writer.md` instructions, passin
 Discover infrastructure components in the workspace (services, Lambdas, containers, or project-specific patterns).
 
 ### Step 2: Execute `infrastructure-doc-writer` for all components
-Read and execute `agents/docs/infrastructure-doc-writer.md` instructions for each component. You can process multiple components by reading the agent file once and applying it to each.
+Read and execute `.windsurf/agents/docs/infrastructure-doc-writer.md` instructions for each component. You can process multiple components by reading the agent file once and applying it to each.
 
 ### Step 3: Write all docs
 For each returned doc, write to `docs/infrastructure/<component-name>.md`. Confirm each.
@@ -128,7 +128,7 @@ Read/update context from:
 - recent `docs/plans/`, `docs/brainstorms/`, and ADRs in `docs/decisions/`
 
 ### Step 2: Execute dedicated docs agent
-Read and execute `agents/docs/architecture-doc-writer.md` instructions and pass gathered context plus existing `docs/architecture.md` (if present).
+Read and execute `.windsurf/agents/docs/architecture-doc-writer.md` instructions and pass gathered context plus existing `docs/architecture.md` (if present).
 
 ### Step 3: Write the doc
 Write returned content to `docs/architecture.md`. Confirm.
@@ -154,7 +154,7 @@ For each doc, extract the file paths, class names, and method names it reference
 **Efficient approach**: Read all `docs/solutions/patterns/` and `docs/infrastructure/` first (highest churn), then module and feature docs.
 
 ### Step 3: Execute `doc-shepherd` for full scan
-Read and execute `agents/workflow/doc-shepherd.md` instructions. Since there's no specific diff to analyze, pass:
+Read and execute `.windsurf/agents/workflow/doc-shepherd.md` instructions. Since there's no specific diff to analyze, pass:
 - `diff`: "Full documentation audit — no specific diff"
 - `changed_files`: all files in the codebase (summary by directory)
 - `work_summary`: "Full documentation freshness and consistency audit"
@@ -180,7 +180,7 @@ Collect decision context from user input and relevant artifacts:
 - any constraints from critical patterns.
 
 ### Step 3: Execute dedicated ADR agent
-Read and execute `agents/docs/adr-writer.md` instructions and provide:
+Read and execute `.windsurf/agents/docs/adr-writer.md` instructions and provide:
 - decision summary,
 - gathered context,
 - full canonical template content from `assets/adr-template.md`.

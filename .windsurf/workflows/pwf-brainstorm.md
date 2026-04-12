@@ -53,34 +53,34 @@ Execute the core research agents by reading and applying their instructions. Pas
 
 ### Core agent 1 — Codebase Research (`repo-research-analyst`)
 
-> "Read and follow `agents/research/repo-research-analyst.md`. Map all existing code related to: `<feature_description>`. Return: exact file paths, entity names, service method names, API routes, DTOs, components, Lambda repos, and which rules apply."
+> "Read and follow `.windsurf/agents/research/repo-research-analyst.md`. Map all existing code related to: `<feature_description>`. Return: exact file paths, entity names, service method names, API routes, DTOs, components, Lambda repos, and which rules apply."
 
 ---
 
 ### Core agent 2 — Integration & Impact Analysis (`integration-impact-analyst`)
 
-> "Read and follow `agents/research/integration-impact-analyst.md`. Map every integration impact of: `<feature_description>`. For every entity, Lambda, notification type, settings section, and permission check: does this feature touch it, change it, or could break it? Focus on: entity changes and migration needs, Lambda pipeline impact, breaking changes with severity."
+> "Read and follow `.windsurf/agents/research/integration-impact-analyst.md`. Map every integration impact of: `<feature_description>`. For every entity, Lambda, notification type, settings section, and permission check: does this feature touch it, change it, or could break it? Focus on: entity changes and migration needs, Lambda pipeline impact, breaking changes with severity."
 
 ---
 
 ### Core agent 3 — Product framing (`po-analyst`)
 
-> "Read and follow `agents/research/po-analyst.md`. Analyze product goals, users, anti-goals, success metrics, and high-impact acceptance criteria for: `<feature_description>`."
+> "Read and follow `.windsurf/agents/research/po-analyst.md`. Analyze product goals, users, anti-goals, success metrics, and high-impact acceptance criteria for: `<feature_description>`."
 
 ---
 
 ### Conditional expansion pack (spawn all applicable in parallel)
 
 - Always for non-trivial features:
-  - `edge-case-hunter` (`agents/research/edge-case-hunter.md`)
-  - `data-model-designer` (`agents/research/data-model-designer.md`)
-  - `api-contract-designer` (`agents/research/api-contract-designer.md`)
+  - `edge-case-hunter` (`.windsurf/agents/research/edge-case-hunter.md`)
+  - `data-model-designer` (`.windsurf/agents/research/data-model-designer.md`)
+  - `api-contract-designer` (`.windsurf/agents/research/api-contract-designer.md`)
 - If user-facing UI/UX is relevant:
-  - `ux-consistency-reviewer` (`agents/research/ux-consistency-reviewer.md`)
+  - `ux-consistency-reviewer` (`.windsurf/agents/research/ux-consistency-reviewer.md`)
 - If async/serverless/evented flow is relevant:
-  - `lambda-pipeline-analyst` (`agents/research/lambda-pipeline-analyst.md`)
+  - `lambda-pipeline-analyst` (`.windsurf/agents/research/lambda-pipeline-analyst.md`)
 - If security/compliance boundaries are material:
-  - `security-sentinel` (`agents/review/security-sentinel.md`)
+  - `security-sentinel` (`.windsurf/agents/review/security-sentinel.md`)
 
 ---
 

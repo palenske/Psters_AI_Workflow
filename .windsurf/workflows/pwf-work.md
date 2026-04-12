@@ -2,7 +2,7 @@
 name: pwf-work
 description: >
   Execute free-form work. Reads existing docs, researches context, derives concrete tasks,
-  implements, builds, and updates documentation. For plan-driven work use /pwf-work-plan.
+  implements, validates TypeScript, and updates documentation. For plan-driven work use /pwf-work-plan. Build only when explicit.
 argument-hint: "[description of what to do, e.g. fix X, improve Y, add Z]"
 disable-model-invocation: true
 ---
@@ -87,12 +87,12 @@ Before Step 1 execution details, resolve extension guidance for `before_work`:
    
    Execute the following agents by reading and applying their instructions:
    
-   - **repo-research-analyst** (`agents/research/repo-research-analyst.md`)
+   - **repo-research-analyst** (`.windsurf/agents/research/repo-research-analyst.md`)
      - Purpose: Maps file paths, existing patterns, rules, existing enums, migration state
      - Input: Feature description, affected modules
      - Output: Concrete file paths, existing patterns
    
-   - **learnings-researcher** (`agents/research/learnings-researcher.md`)
+   - **learnings-researcher** (`.windsurf/agents/research/learnings-researcher.md`)
      - Purpose: Surfaces relevant solutions from `docs/solutions/`
      - Input: Feature description, technical domain
      - Output: Applicable patterns, previous solutions
@@ -103,9 +103,9 @@ Before Step 1 execution details, resolve extension guidance for `before_work`:
    
    Execute the following agents when applicable by reading and applying their instructions:
    
-   - Entity changes detected → **migration-impact-planner** (`agents/research/migration-impact-planner.md`)
-   - Multi-step or UI flows → **spec-flow-analyzer** (`agents/workflow/spec-flow-analyzer.md`)
-   - Security, payments, new tech → **best-practices-researcher** (`agents/research/best-practices-researcher.md`), **framework-docs-researcher** (`agents/research/framework-docs-researcher.md`)
+   - Entity changes detected → **migration-impact-planner** (`.windsurf/agents/research/migration-impact-planner.md`)
+   - Multi-step or UI flows → **spec-flow-analyzer** (`.windsurf/agents/workflow/spec-flow-analyzer.md`)
+   - Security, payments, new tech → **best-practices-researcher** (`.windsurf/agents/research/best-practices-researcher.md`), **framework-docs-researcher** (`.windsurf/agents/research/framework-docs-researcher.md`)
 
 6. **Present research summary to user:** Before implementing, show:
    - Files that will be changed (from research)
@@ -126,7 +126,7 @@ Before Step 1 execution details, resolve extension guidance for `before_work`:
 2. **Self-validate:** Review every task. Does it have a file path? Does it have specific method names or field names? If not, rewrite it.
 
 3. **Debug route detection:** If this work is a bug/failure/regression fix:
-   - First validate reproducibility with `bug-reproduction-validator` (`agents/workflow/bug-reproduction-validator.md`) when the report is ambiguous.
+   - First validate reproducibility with `bug-reproduction-validator` (`.windsurf/agents/workflow/bug-reproduction-validator.md`) when the report is ambiguous.
    - Then apply `skills/systematic-debugging/SKILL.md` (root-cause -> pattern -> hypothesis -> minimal fix) before implementing broad changes.
    - deep stack/source uncertainty -> `skills/systematic-debugging/root-cause-tracing.md`
    - async timing/flaky behavior -> `skills/systematic-debugging/condition-based-waiting.md`
@@ -156,7 +156,8 @@ Follow the migration chain defined in `rules/operational-guardrails.mdc` (genera
 Treat this as blocking. Do not continue other tasks until the chain succeeds.
 
 After all tasks:
-- **Build** — `npm run build` in every affected repo. Fix ALL errors.
+- **TypeScript Validation** — Run `npm run validate` (or `tsc --noEmit` if no validate script). Fix ALL type/lint errors.
+- **Build Only When Explicit** — Full build (`npm run build`) only runs when explicitly requested by user or during deployment workflows.
 
 ---
 

@@ -26,16 +26,16 @@ For each agent, **read its agent file** and execute the instructions with the gi
 
 | Agent | File path |
 |-------|-----------|
-| repo-research-analyst | `agents/research/repo-research-analyst.md` |
-| learnings-researcher | `agents/research/learnings-researcher.md` |
-| spec-flow-analyzer | `agents/workflow/spec-flow-analyzer.md` |
-| migration-impact-planner | `agents/research/migration-impact-planner.md` |
-| architecture-strategist | `agents/review/architecture-strategist.md` |
-| security-sentinel | `agents/review/security-sentinel.md` |
-| performance-oracle | `agents/review/performance-oracle.md` |
-| best-practices-researcher | `agents/research/best-practices-researcher.md` |
-| framework-docs-researcher | `agents/research/framework-docs-researcher.md` |
-| plan-document-reviewer | `agents/workflow/plan-document-reviewer.md` |
+| repo-research-analyst | `.windsurf/agents/research/repo-research-analyst.md` |
+| learnings-researcher | `.windsurf/agents/research/learnings-researcher.md` |
+| spec-flow-analyzer | `.windsurf/agents/workflow/spec-flow-analyzer.md` |
+| migration-impact-planner | `.windsurf/agents/research/migration-impact-planner.md` |
+| architecture-strategist | `.windsurf/agents/review/architecture-strategist.md` |
+| security-sentinel | `.windsurf/agents/review/security-sentinel.md` |
+| performance-oracle | `.windsurf/agents/review/performance-oracle.md` |
+| best-practices-researcher | `.windsurf/agents/research/best-practices-researcher.md` |
+| framework-docs-researcher | `.windsurf/agents/research/framework-docs-researcher.md` |
+| plan-document-reviewer | `.windsurf/agents/workflow/plan-document-reviewer.md` |
 
 ---
 
@@ -61,17 +61,17 @@ Use preset `qualityProfile` guidance:
 
 Execute the following agents by reading and applying their instructions:
 
-1. **repo-research-analyst** (`agents/research/repo-research-analyst.md`)
+1. **repo-research-analyst** (`.windsurf/agents/research/repo-research-analyst.md`)
    - Purpose: Maps file paths, services, DTOs, entities, rules, existing enums, current migration state for the affected area
    - Input: Feature description, affected modules/areas
    - Output: Concrete file paths, existing patterns, migration state
 
-2. **learnings-researcher** (`agents/research/learnings-researcher.md`)
+2. **learnings-researcher** (`.windsurf/agents/research/learnings-researcher.md`)
    - Purpose: Surfaces relevant solutions from `docs/solutions/`
    - Input: Feature description, technical domain
    - Output: Applicable patterns, previous solutions, best practices
 
-3. **spec-flow-analyzer** (`agents/workflow/spec-flow-analyzer.md`)
+3. **spec-flow-analyzer** (`.windsurf/agents/workflow/spec-flow-analyzer.md`)
    - Purpose: Finds missing flows, edge cases, error states; produces Given/When/Then acceptance criteria
    - Input: Feature requirements
    - Output: Acceptance criteria and tasks to add
@@ -82,22 +82,22 @@ Execute the following agents by reading and applying their instructions:
 
 Execute the following agents when applicable by reading and applying their instructions:
 
-1. **migration-impact-planner** (`agents/research/migration-impact-planner.md`)
+1. **migration-impact-planner** (`.windsurf/agents/research/migration-impact-planner.md`)
    - Condition: Execute if entity changes detected (new columns, entities, indexes, FK constraints, enum changes)
    - Input: Entity changes, current schema state
    - Output: Migration strategy, risks, atomic chain requirements
 
-2. **best-practices-researcher** (`agents/research/best-practices-researcher.md`)
+2. **best-practices-researcher** (`.windsurf/agents/research/best-practices-researcher.md`)
    - Condition: Execute if the feature involves security, payments, or new third-party integrations
    - Input: Feature scope, integration requirements
    - Output: Security patterns, integration best practices
 
-3. **framework-docs-researcher** (`agents/research/framework-docs-researcher.md`)
+3. **framework-docs-researcher** (`.windsurf/agents/research/framework-docs-researcher.md`)
    - Condition: Execute if the feature requires unfamiliar framework patterns
    - Input: Framework/library requirements
    - Output: Framework-specific patterns and conventions
 
-4. **git-history-analyzer** (`agents/research/git-history-analyzer.md`)
+4. **git-history-analyzer** (`.windsurf/agents/research/git-history-analyzer.md`)
    - Condition: Execute for legacy/refactor work where historical intent matters
    - Input: Files to analyze, refactor scope
    - Output: Historical context, previous decisions
@@ -108,17 +108,17 @@ Execute the following agents when applicable by reading and applying their instr
 
 Execute the following review agents by reading and applying their instructions:
 
-1. **architecture-strategist** (`agents/review/architecture-strategist.md`) — **ALWAYS**
+1. **architecture-strategist** (`.windsurf/agents/review/architecture-strategist.md`) — **ALWAYS**
    - Purpose: Structural approach, module boundaries, dependency direction
    - Input: Proposed solution, existing architecture
    - Output: Architecture feedback, structural recommendations
 
-2. **security-sentinel** (`agents/review/security-sentinel.md`)
+2. **security-sentinel** (`.windsurf/agents/review/security-sentinel.md`)
    - Condition: Only if auth, secrets, permissions, encryption, or file upload involved
    - Input: Security-sensitive components
    - Output: Security risks, mitigation strategies
 
-3. **performance-oracle** (`agents/review/performance-oracle.md`)
+3. **performance-oracle** (`.windsurf/agents/review/performance-oracle.md`)
    - Condition: Only if DB-heavy (new queries, pagination, indexes, N+1 risks)
    - Input: Database operations, query patterns
    - Output: Performance risks, optimization recommendations
@@ -285,7 +285,7 @@ Every task MUST NOT have:
 
 After writing the plan, run a formal review loop using `plan-document-reviewer`:
 
-1. Read and execute `agents/workflow/plan-document-reviewer.md` with the generated plan path and relevant context summary.
+1. Read and execute `.windsurf/agents/workflow/plan-document-reviewer.md` with the generated plan path and relevant context summary.
 2. Apply only execution-impacting fixes (`CRITICAL`/`HIGH`) immediately.
 3. Re-run the reviewer agent.
 4. Stop when approved or after a maximum of 3 iterations.

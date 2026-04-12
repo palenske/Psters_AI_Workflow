@@ -40,12 +40,12 @@ Supported targets:
    - project structure and deployment/config patterns,
    - known contracts/integrations/environment settings.
 4. Use dedicated agents when available:
-   - `infrastructure` -> read and execute `agents/docs/infrastructure-doc-writer.md` instructions
-   - `architecture` -> read and execute `agents/docs/architecture-doc-writer.md` instructions
+   - `infrastructure` -> read and execute `.windsurf/agents/docs/infrastructure-doc-writer.md` instructions
+   - `architecture` -> read and execute `.windsurf/agents/docs/architecture-doc-writer.md` instructions
    - `integrations`, `environments`, `glossary` -> write/update directly in canonical files
 5. Write/update docs with concrete source-of-truth references and invariants.
 6. Cross-check consistency across the full foundation set.
-7. If project `README.md` is missing/stale after major foundation updates, optionally read and execute `agents/docs/readme-writer.md` instructions to keep onboarding docs aligned.
+7. If project `README.md` is missing/stale after major foundation updates, optionally read and execute `.windsurf/agents/docs/readme-writer.md` instructions to keep onboarding docs aligned.
 
 ## Required minimum sections
 
