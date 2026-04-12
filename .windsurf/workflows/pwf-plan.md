@@ -227,7 +227,8 @@ The `## Implementation Plan` section **must** open with a summary table, then ea
   - Add `createProject(dto: CreateProjectDto, userId: string): Promise<ProjectEntity>`
 
 **After completing this phase**:
-1. Build — `npm run build` in affected repos; fix all errors.
+1. TypeScript Validation — Run `npm run validate` (or `tsc --noEmit` if no validate script) in affected repos; fix all type/lint errors.
+2. Build — Only run `npm run build` when explicitly requested or preparing for deployment.
 2. Update this plan — mark Phase N as `✅ Completed` in the table.
 ```
 
@@ -241,7 +242,7 @@ The `## Implementation Plan` section **must** open with a summary table, then ea
 - [ ] T002 [P] Create/update `path/to/other-file.ts`
   - Specific change details
 
-**After implementation**: `npm run build`, fix all errors.
+**After implementation**: Run `npm run validate` (or `tsc --noEmit`), fix all type/lint errors. Build only when explicit.
 ```
 
 ### Master Checklist (always required for phased plans):
@@ -252,7 +253,7 @@ The `## Implementation Plan` section **must** open with a summary table, then ea
 ### Phase 1: [Name]
 - [ ] T001 [US1] Task short label
 - [ ] T002 [P] [US1] Task short label
-- [ ] Build passes
+- [ ] TypeScript validation passes (build only when explicit)
 
 ### Phase 2: [Name]
 - [ ] ...
