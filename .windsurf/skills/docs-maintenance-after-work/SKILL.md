@@ -17,20 +17,17 @@ Use this skill after implementation to keep project docs synchronized with reali
 1. Run `doc-shepherd` (always).
 2. Run `plan-sync` when work maps to an active plan/work-plan context.
 3. Conditionally run specialized doc writers:
-   - `backend-module-doc-writer`
-   - `frontend-feature-doc-writer`
-   - `lambda-doc-writer`
+   - Module/service documentation agents
+   - Frontend/UI documentation agents  
+   - Infrastructure/deployment documentation agents
 4. Run `pattern-extractor` when a reusable pattern emerged.
 5. Apply documentation quality gate.
 
-## Agent paths
+## Agent Reference
 
-- `doc-shepherd` -> `agents/docs/doc-shepherd.md`
-- `plan-sync` -> `agents/docs/plan-sync.md`
-- `backend-module-doc-writer` -> `agents/docs/backend-module-doc-writer.md`
-- `frontend-feature-doc-writer` -> `agents/docs/frontend-feature-doc-writer.md`
-- `lambda-doc-writer` -> `agents/docs/lambda-doc-writer.md`
-- `pattern-extractor` -> `agents/docs/pattern-extractor.md`
+Reference agents from `agents/docs/`:
+- `doc-shepherd`, `plan-sync`, `pattern-extractor`
+- Specialized writers for backend, frontend, infrastructure as applicable
 
 ## Inputs required for doc agents
 

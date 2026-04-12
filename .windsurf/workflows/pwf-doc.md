@@ -1,8 +1,8 @@
 ---
 name: pwf-doc
 description: >
-  Documentation command. Modes: (1) /pwf-doc lambda <repo> — Lambda doc, (2) /pwf-doc lambdas — all Lambdas, (3) /pwf-doc module <module> — backend module doc, (4) /pwf-doc feature <feature> — frontend feature doc, (5) /pwf-doc architecture — system architecture overview, (6) /pwf-doc update — scan all docs for staleness and contradictions, (7) /pwf-doc adr "<decision>" — create an Architecture Decision Record, (8) /pwf-doc custom "<target and pattern>" — generate any project documentation from a user-described scope and format, (9) /pwf-doc infrastructure — project infrastructure source of truth.
-argument-hint: "lambda <repo> | lambdas | module <module> | feature <feature> | architecture | update | adr <decision> | custom <target-and-pattern> | infrastructure"
+  Documentation command. Modes: (1) /pwf-doc infrastructure <component> — infrastructure/service doc, (2) /pwf-doc module <module> — backend module doc, (3) /pwf-doc feature <feature> — frontend/UI feature doc, (4) /pwf-doc architecture — system architecture overview, (5) /pwf-doc update — scan all docs for staleness and contradictions, (6) /pwf-doc adr "<decision>" — create an Architecture Decision Record, (7) /pwf-doc custom "<target and pattern>" — generate any project documentation from a user-described scope and format, (8) /pwf-doc infrastructure — project infrastructure source of truth.
+argument-hint: "infrastructure <component> | module <module> | feature <feature> | architecture | update | adr <decision> | custom <target-and-pattern>"
 disable-model-invocation: true
 ---
 
@@ -17,9 +17,9 @@ Use this command when you want explicit technical documentation output for a spe
 **Anti-drift guidance:** Before creating new docs, check if a related doc already exists. Prefer updating or syncing the existing doc instead of creating duplicates. This avoids drift and keeps documentation authoritative.
 
 The living documentation lives in:
-- `docs/lambdas/` — Lambda and processor repos
-- `docs/modules/` — NestJS backend modules (or equivalent)
-- `docs/features/` — Angular frontend features (or equivalent)
+- `docs/infrastructure/` — Services, Lambdas, containers, infrastructure components
+- `docs/modules/` — Backend modules (NestJS, Next.js API routes, etc.)
+- `docs/features/` — Frontend features and UI components
 - `docs/decisions/` — Architecture Decision Records (ADRs)
 - `docs/architecture.md` — System-wide architecture overview
 
@@ -30,15 +30,14 @@ The living documentation lives in:
 If empty, show:
 ```
 Usage:
-  /pwf-doc lambda <repo-name>      Document a Lambda repo     (e.g. /pwf-doc lambda email-classifier-lambda)
-  /pwf-doc lambdas                 Document ALL Lambda repos in parallel
-  /pwf-doc module <module-name>    Document a backend module   (e.g. /pwf-doc module projects)
-  /pwf-doc feature <feature-name>  Document a frontend feature (e.g. /pwf-doc feature dashboard)
-  /pwf-doc architecture            Generate/update docs/architecture.md
-  /pwf-doc update                  Scan all docs for staleness and contradictions
-  /pwf-doc adr "<decision>"        Create an Architecture Decision Record
+  /pwf-doc infrastructure <component>  Document infrastructure/service (e.g. /pwf-doc infrastructure api-gateway)
+  /pwf-doc module <module-name>        Document a backend module     (e.g. /pwf-doc module projects)
+  /pwf-doc feature <feature-name>      Document a frontend feature   (e.g. /pwf-doc feature dashboard)
+  /pwf-doc architecture                Generate/update docs/architecture.md
+  /pwf-doc update                      Scan all docs for staleness and contradictions
+  /pwf-doc adr "<decision>"            Create an Architecture Decision Record
   /pwf-doc custom "<target-and-pattern>"  Generate/update any doc from user-described scope
-  /pwf-doc infrastructure          Generate/update docs/infrastructure.md
+  /pwf-doc infrastructure              Generate/update docs/infrastructure.md
 ```
 
 ---
@@ -47,45 +46,45 @@ Usage:
 
 **Windsurf Adaptation**: Execute docs agents by reading their instruction files and applying them directly.
 
-## Mode 1: `/pwf-doc lambda <repo-name>`
+## Mode 1: `/pwf-doc infrastructure <component-name>`
 
-### Step 1: Verify repo exists
-Check that the Lambda repo exists in the workspace. If not, list available Lambda repos and ask user to pick.
+### Step 1: Verify component exists
+Check that the infrastructure component exists in the workspace. If not, list available components and ask user to pick.
 
-### Step 2: Execute `lambda-doc-writer`
-Read and execute `agents/docs/lambda-doc-writer.md` instructions, passing the repo path and any existing `docs/lambdas/<repo-name>.md`.
+### Step 2: Execute `infrastructure-doc-writer`
+Read and execute `agents/docs/infrastructure-doc-writer.md` instructions, passing the component path and any existing `docs/infrastructure/<component-name>.md`.
 
 ### Step 3: Write the doc
-- Ensure `docs/lambdas/` directory exists
-- Write returned text to `docs/lambdas/<repo-name>.md`
-- Confirm: "Lambda documentation written: `docs/lambdas/<repo-name>.md`"
+- Ensure `docs/infrastructure/` directory exists
+- Write returned text to `docs/infrastructure/<component-name>.md`
+- Confirm: "Infrastructure documentation written: `docs/infrastructure/<component-name>.md`"
 
 ---
 
-## Mode 2: `/pwf-doc lambdas`
+## Mode 2: `/pwf-doc infrastructure` (all components)
 
-### Step 1: Discover all Lambda repos
-Discover Lambda repos in the workspace (e.g. `*-lambda`, `*-processor` or project-specific patterns).
+### Step 1: Discover all infrastructure components
+Discover infrastructure components in the workspace (services, Lambdas, containers, or project-specific patterns).
 
-### Step 2: Execute `lambda-doc-writer` for all Lambda repos
-Read and execute `agents/docs/lambda-doc-writer.md` instructions for each Lambda repo. You can process multiple repos by reading the agent file once and applying it to each repo.
+### Step 2: Execute `infrastructure-doc-writer` for all components
+Read and execute `agents/docs/infrastructure-doc-writer.md` instructions for each component. You can process multiple components by reading the agent file once and applying it to each.
 
 ### Step 3: Write all docs
-For each returned doc, write to `docs/lambdas/<repo-name>.md`. Confirm each.
+For each returned doc, write to `docs/infrastructure/<component-name>.md`. Confirm each.
 
-### Step 4: Update `docs/lambdas/README.md`
-Update the index table with all documented Lambdas, their pipeline position, and links to individual docs.
+### Step 4: Update `docs/infrastructure/README.md`
+Update the index table with all documented infrastructure components and links to individual docs.
 
 ---
 
 ## Mode 3: `/pwf-doc module <module-name>`
 
 ### Step 1: Verify module exists
-Check that `backend/src/<module-name>/` (or equivalent) exists. If not, list available modules and ask user to pick.
+Check that the module exists in the project (e.g., `src/modules/<module-name>/` or equivalent). If not, list available modules and ask user to pick.
 
-### Step 2: Execute `backend-module-doc-writer`
-Read and execute `agents/docs/backend-module-doc-writer.md` instructions, passing:
-- Module path: `backend/src/<module-name>/`
+### Step 2: Execute module doc writer
+Read and execute the appropriate module documentation agent (e.g., `backend-module-doc-writer` for NestJS), passing:
+- Module path: project-specific path
 - Existing doc if present: `docs/modules/<module-name>.md`
 
 Wait for the agent to return text.
@@ -101,11 +100,11 @@ Wait for the agent to return text.
 ## Mode 4: `/pwf-doc feature <feature-name>`
 
 ### Step 1: Verify feature exists
-Check that `frontend/src/app/features/<feature-name>/` (or equivalent) exists. If not, list available features and ask user to pick.
+Check that the feature exists in the project (e.g., `src/features/<feature-name>/` or equivalent). If not, list available features and ask user to pick.
 
-### Step 2: Execute `frontend-feature-doc-writer`
-Read and execute `agents/docs/frontend-feature-doc-writer.md` instructions, passing:
-- Feature path: `frontend/src/app/features/<feature-name>/`
+### Step 2: Execute feature doc writer
+Read and execute the appropriate feature documentation agent (e.g., `frontend-feature-doc-writer` for Angular), passing:
+- Feature path: project-specific path
 - Existing doc if present: `docs/features/<feature-name>.md`
 
 Wait for the agent to return text.
@@ -122,7 +121,7 @@ Wait for the agent to return text.
 
 ### Step 1: Gather context (parallel reads)
 Read/update context from:
-- `docs/lambdas/` (if exists)
+- `docs/infrastructure/` (if exists)
 - `docs/modules/` (if exists)
 - `docs/features/` (if exists)
 - `docs/solutions/patterns/critical-patterns.md` (if exists)
@@ -142,7 +141,7 @@ Scan ALL living docs for staleness and contradictions without requiring a specif
 
 ### Step 1: Discover all living docs
 List all `.md` files in:
-- `docs/lambdas/`
+- `docs/infrastructure/`
 - `docs/modules/`
 - `docs/features/`
 - `docs/solutions/`
@@ -152,7 +151,7 @@ List all `.md` files in:
 ### Step 2: Read the codebase state
 For each doc, extract the file paths, class names, and method names it references. Check each against the actual codebase to find stale references.
 
-**Efficient approach**: Read all `docs/solutions/patterns/` and `docs/lambdas/` first (highest churn), then module and feature docs.
+**Efficient approach**: Read all `docs/solutions/patterns/` and `docs/infrastructure/` first (highest churn), then module and feature docs.
 
 ### Step 3: Execute `doc-shepherd` for full scan
 Read and execute `agents/workflow/doc-shepherd.md` instructions. Since there's no specific diff to analyze, pass:

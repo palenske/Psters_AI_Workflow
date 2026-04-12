@@ -25,9 +25,9 @@ Read these before coding.
 ## Optional but high-value context docs
 
 - `docs/solutions/patterns/critical-patterns.md` (if exists)
-- `docs/modules/<module>.md` when backend module scope is touched
-- `docs/features/<feature>.md` when frontend feature scope is touched
-- `docs/lambdas/<repo>.md` when Lambda scope is touched
+- `docs/modules/<module>.md` when backend/module scope is touched
+- `docs/features/<feature>.md` when frontend/UI scope is touched
+- `docs/infrastructure/<component>.md` when infrastructure scope is touched
 - `docs/runbooks/README.md` when operational/deploy behavior is touched
 
 ## If baseline docs are missing

@@ -65,9 +65,9 @@ Before Step 1 execution details, resolve extension guidance for `before_work`:
    - Create any missing canonical baseline docs immediately using the skill's required minimum sections.
    - Then read scope-specific docs:
      - `docs/solutions/patterns/critical-patterns.md` (if exists)
-     - `docs/modules/<module>.md` (backend scope)
-     - `docs/features/<feature>.md` (frontend scope)
-     - `docs/lambdas/<repo>.md` (Lambda scope)
+     - `docs/modules/<module>.md` (backend/module scope)
+     - `docs/features/<feature>.md` (frontend/UI scope)
+     - `docs/infrastructure/<component>.md` (infrastructure scope)
      - `docs/runbooks/README.md` (operational/deploy scope)
    - Search `docs/solutions/` by feature keywords for known gotchas.
    - **If any other expected doc file is missing:** create it immediately with a useful baseline (not placeholders). Minimum sections:
@@ -136,7 +136,7 @@ Before Step 1 execution details, resolve extension guidance for `before_work`:
 
 - **Operational policy source:** `rules/operational-guardrails.mdc`
 - **Project overrides (optional):** `docs/workflow/operational-overrides.md` (if present, it overrides defaults from guardrails)
-- **Database access:** Load DB vars from `backend/.env` (or project-specific env) for psql queries when applicable. Never display credentials.
+- **Database access:** Load DB vars from project `.env` file for database queries when applicable. Never display credentials.
 - **Context7:** Use the Context7 MCP (`resolve-library-id` then `query-docs`) before implementing with external libraries.
 
 ---

@@ -14,7 +14,7 @@ Create and use Git worktrees so multiple branches can be worked on in separate d
 
 **Use case:** Run a separate agent or human in another branch in a different folder without touching the current branch. Each worktree has its own working directory but shares the same .git history.
 
-**Note:** Repo root is the workspace root; backend/frontend/lambdas may be sibling folders or monorepo structure. Create worktrees from the repo that contains the branch you need.
+**Note:** Create worktrees from the repo that contains the branch you need. Works with monorepos, multi-package repos, or simple single-folder projects.
 
 ## Branch/worktree closure discipline
 

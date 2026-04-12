@@ -55,7 +55,7 @@ Create these directories if missing:
 - `docs/runbooks/`
 - `docs/modules/`
 - `docs/features/`
-- `docs/lambdas/`
+- `docs/infrastructure/`
 - `docs/decisions/`
 
 For each empty directory above, create `.gitkeep`.

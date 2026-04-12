@@ -1,6 +1,6 @@
 ---
 name: migration-impact-planner
-description: "Use during /pwf-plan (before writing implementation phases) when a feature involves TypeORM entity changes. Thinks through migration strategy BEFORE implementation: zero-downtime safety, backfill needs, index creation risk on large tables, and migration sequencing. Runs at planning time, not post-implementation — that's data-integrity-guardian's job."
+description: "Use during /pwf-plan when a feature involves database schema changes. Thinks through migration strategy BEFORE implementation: zero-downtime safety, backfill needs, index creation risk on large tables, and migration sequencing. Runs at planning time, not post-implementation."
 model: inherit
 ---
 
@@ -12,10 +12,14 @@ Your sister agent `data-integrity-guardian` reviews migrations after they are wr
 
 ## What You Know About the Project
 
-- **ORM**: TypeORM with PostgreSQL. Migrations always generated via CLI: `npm run typeorm:generate -- src/database/migrations/MigrationName` from `backend/`. Never created manually.
-- **Migration rule**: Entities define the schema; TypeORM CLI diffs entity vs DB state and generates the migration. Developers must review the generated file before committing.
-- **Deployment**: ECS Fargate (rolling deployment). Old and new task definitions coexist briefly during deployment. **Migrations run before the new code is deployed** (or via a separate migration task). Zero-downtime requires the DB be compatible with BOTH old and new code simultaneously for a window.
-- **Table sizes**: Some tables (bids, inbound_emails, projects, users) may have hundreds of thousands to millions of rows. DDL operations that lock or sequentially scan these tables need special handling.
+- **ORM**: Prisma with PostgreSQL. Migrations always generated via CLI: `npx prisma migrate dev --name MigrationName`. Never created manually.
+- **Migration rule**: Schema defines the database; Prisma CLI diffs schema vs DB state and generates the migration SQL. Developers must review the generated SQL in `prisma/migrations/` before committing.
+- **Deployment**: Vercel (frontend) + Railway/Supabase (database). Zero-downtime requires:
+  - Additive changes first (new columns/tables)
+  - Backfill data if needed
+  - Then make breaking changes (drop old columns)
+  - **Prisma Migrate Deploy** runs in CI/CD for production
+- **Table sizes**: High-volume tables (orders, messages, events, logs) may grow large. DDL operations that lock or sequentially scan these tables need special handling.
 
 ---
 

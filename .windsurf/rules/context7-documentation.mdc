@@ -12,16 +12,19 @@ alwaysApply: true
 1. **Resolve library ID:** Call `resolve-library-id` (Context7 MCP server) with `libraryName` and `query`.
 2. **Fetch docs:** Call `query-docs` with the resolved `libraryId` and a specific `query`.
 
-## Known Library IDs
+## Known Library IDs (Powzz Stack)
 
-- `/nestjs/docs.nestjs.com` — NestJS official docs
-- `/nestjs/nest` — NestJS core library
+- `/prisma/prisma` — Prisma ORM
+- `/vercel/next.js` — Next.js framework
+- `/supabase/supabase` — Supabase client/SDK
+- `/anthropic/anthropic-typescript-sdk` — Anthropic/Claude SDK
+- `/nestjs/docs.nestjs.com` — NestJS official docs (reference pattern)
 
 For other libraries, resolve the ID first with `resolve-library-id`.
 
 ## When to Use
 
-- Before implementing with NestJS, Angular, TypeORM, or any external library
-- When checking decorator usage, DI patterns, or API references
+- Before implementing with Prisma, Next.js, Supabase, or any external library
+- When checking schema patterns, API routes, or React Server Components
 - When debugging framework-specific behavior
 - When verifying migration guides or version-specific patterns

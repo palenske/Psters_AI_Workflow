@@ -30,11 +30,13 @@ Use this skill when a task benefits from parallel specialist analysis or impleme
 4. Resolve conflicts explicitly (do not average contradictions).
 5. Produce final plan/report with rationale and chosen direction.
 
-## Naming convention
+## Agent Reference
 
-In prompts, reference agents with collision-safe namespace:
+Reference agents using paths relative to `.windsurf/agents/`:
 
-- `psters-ai-workflow:<category>:<agent-name>`
+- `agents/<category>/<agent-name>`
+
+Example: `agents/review/architecture-strategist`
 
 ## Anti-patterns
 

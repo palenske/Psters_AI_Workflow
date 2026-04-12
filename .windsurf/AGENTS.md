@@ -14,53 +14,43 @@ This file is the operational contract for the Windsurf plugin at `.windsurf/`.
    - `docs/` is operational memory.
    - Keep docs aligned with implemented state.
 
-## MCP Configuration
+## MCP Integration
 
-The plugin uses MCP servers configured in `.windsurf/mcp.json`:
+The plugin supports MCP (Model Context Protocol) servers for extended capabilities:
 
-- **context7**: Documentation retrieval via `@upstash/context7-mcp`
-- **antd**: Ant Design component library integration
-- **stitch**: UI generation and design system tools
+- **Documentation retrieval**: Context7 for library/framework docs
+- **UI libraries**: Component system integrations
+- **Design tools**: Figma/Stitch for design-to-code workflows
 
 ## Agent organization
 
-Agents are organized by domain in `.windsurf/agents/`:
+Agents are organized by domain:
 
-- `research/`: Exploration and information gathering agents
-- `review/`: Code review and quality assurance agents  
-- `docs/`: Documentation generation and maintenance agents
-- `workflow/`: Workflow execution and orchestration agents
-- `design/`: UI/UX design and component generation agents
+- **research**: Exploration and information gathering
+- **review**: Code review and quality assurance  
+- **docs**: Documentation generation and maintenance
+- **workflow**: Workflow execution and orchestration
+- **design**: UI/UX design and component generation
 
-When referencing agents in prompts, use the directory structure:
-- `agents/research/<agent-name>`
-- `agents/review/<agent-name>`
-- `agents/docs/<agent-name>`
-- `agents/workflow/<agent-name>`
-- `agents/design/<agent-name>`
+Agents specialize by technology stack (NestJS, Next.js, Angular, etc.) and concern (architecture, data integrity, security, etc.).
 
 ## Skills
 
-Reusable skills are available in `.windsurf/skills/`:
+Reusable skills by category:
 
-- `commit-changes/`: Multi-repo commit orchestration
-- `commit-changes-repo-worker/`: Per-repo commit worker
-- `fast-validation/`: Quick TypeScript validation without full build
-- `orchestrating-multi-agents/`: Parallel subagent management
-- `requesting-code-review/`: Standardized review requests
-- `receiving-code-review/`: Review feedback processing
-- `systematic-debugging/`: 4-phase root-cause debugging
-- `test-driven-development/`: TDD workflow (opt-in)
-- `verification-before-completion/`: Pre-completion verification
-- `using-psters-workflow/`: Workflow meta-skill
-- `git-worktree/`: Worktree management
-- `finishing-a-development-branch/`: Branch closure discipline
-- `nestjs-conventions/`: NestJS patterns
-- `angular-conventions/`: Angular patterns
-- `deploy-lambda/`: AWS Lambda deployment
-- `docs-baseline-loading/`: Foundation docs loading
-- `docs-maintenance-after-work/`: Post-work doc maintenance
-- `antd-mcp/`: Ant Design MCP integration
+**Workflow & Process:**
+- Commit orchestration, code review workflows, debugging discipline
+- Git worktree management, branch lifecycle, verification gates
+
+**Technology Conventions:**
+- Framework-specific patterns (NestJS, Angular, Next.js)
+- Deployment workflows (Lambda, containers)
+- UI library integrations
+
+**Quality & Maintenance:**
+- Fast validation without full builds
+- Documentation maintenance and baseline loading
+- Test-driven development (opt-in)
 
 ## Path conventions
 

@@ -38,7 +38,7 @@ Extract every ticket identifier and its short title from the pasted text:
 
 ## Phase 2 — Discover Repos With Changes
 
-For each **workspace path** (all paths from context — `backend`, `frontend`, `*-lambda`, etc.):
+For each **workspace path** (all paths from context — project roots, monorepo packages, etc.):
 
 1. Run: `git -C <path> status --short`
 2. Skip if not a git repo (exit code ≠ 0) or output is empty.

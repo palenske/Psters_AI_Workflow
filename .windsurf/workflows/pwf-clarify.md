@@ -27,7 +27,7 @@ If empty, ask: "Which plan should I clarify? (e.g. `docs/plans/20260312-feature-
 3. Read related docs when applicable:
    - `docs/modules/<module>.md`
    - `docs/features/<feature>.md`
-   - `docs/lambdas/<repo>.md`
+   - `docs/infrastructure/<component>.md`
    - `docs/solutions/patterns/critical-patterns.md` (if exists)
 
 ---

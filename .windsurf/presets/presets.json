@@ -11,8 +11,14 @@
     "nestjs-api": {
       "description": "NestJS API feature planning and execution",
       "qualityProfile": "strict",
-      "planningEmphasis": ["dto-contracts", "typeorm-migration-safety", "module-boundaries"],
+      "planningEmphasis": ["dto-contracts", "prisma-schema-safety", "module-boundaries"],
       "reviewAgents": ["nestjs-reviewer", "data-integrity-guardian", "schema-drift-detector"]
+    },
+    "nextjs-prisma": {
+      "description": "Next.js + Prisma full-stack feature planning",
+      "qualityProfile": "strict",
+      "planningEmphasis": ["api-route-contracts", "prisma-migration-safety", "rsc-client-boundary", "trigger-task-safety"],
+      "reviewAgents": ["architecture-strategist", "data-integrity-guardian", "kieran-typescript-reviewer", "deployment-verification-agent"]
     },
     "angular-feature": {
       "description": "Angular feature UX and state orchestration",

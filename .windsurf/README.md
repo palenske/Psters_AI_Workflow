@@ -8,11 +8,11 @@
 
 ### Included
 
-- **rules/**: commit conventions, markdown discipline, TypeORM migrations, Context7 documentation
-- **skills/**: commit orchestration, per-repo commit worker, NestJS/Angular conventions, AWS Lambda deploy, verification-before-completion, systematic-debugging (+ debug artifacts), using-psters-workflow, orchestrating-multi-agents, requesting-code-review, receiving-code-review, finishing-a-development-branch, test-driven-development (opt-in), git-worktree
+- **rules/**: commit conventions, markdown discipline, Prisma migrations, Context7 documentation
+- **skills/**: commit orchestration, per-repo commit worker, NestJS/Next.js/Angular conventions, AWS Lambda deploy, verification-before-completion, systematic-debugging (+ debug artifacts), using-psters-workflow, orchestrating-multi-agents, requesting-code-review, receiving-code-review, finishing-a-development-branch, test-driven-development (opt-in), git-worktree
 - **agents/**: full workflow agents — review (simplicity, security, architecture, schema-drift, performance, etc.), design, docs, research, workflow
 - **workflows/**: `pwf-help`, `pwf-setup`, `pwf-setup-workspace`, `pwf-brainstorm`, `pwf-plan`, `pwf-clarify`, `pwf-checklist`, `pwf-analyze`, `pwf-work-plan`, `pwf-work`, `pwf-work-light`, `pwf-work-tdd`, `pwf-review`, `pwf-doc`, `pwf-doc-foundation`, `pwf-doc-runbook`, `pwf-doc-capture`, `pwf-doc-refresh`, `pwf-aws-lambda-deploy`, `pwf-commit-changes`
-- **presets/**: workflow presets (`general`, `nestjs-api`, `angular-feature`, `lambda-pipeline`, `bugfix-hotfix`)
+- **presets/**: workflow presets (`general`, `nestjs-api`, `nextjs-prisma`, `angular-feature`, `lambda-pipeline`, `bugfix-hotfix`)
 - **extensions/**: extension hook points (`before_plan`, `after_plan`, `before_work_plan`, `after_work_plan`, `before_work`, `after_work`)
 
 ### Docs scope boundary
@@ -26,7 +26,7 @@
 This plugin enforces:
 
 - **Contextualization**: `/pwf-work` and `/pwf-work-plan` read docs first, never jump to implementation.
-- **Documentation**: Both commands update docs as part of their mandatory workflow (doc-shepherd, module/feature/lambda docs).
+- **Documentation**: Both commands update docs as part of their mandatory workflow (doc-shepherd, module/feature/infrastructure docs).
 - **Structure**: Phases, tasks, review loops, and commit conventions keep work traceable.
 
 ### Workflow
@@ -138,11 +138,11 @@ Para validar prontidao de submissao:
 
 ### O que esta incluido
 
-- **rules/**: convencoes de commit, disciplina de markdown, migrations TypeORM, documentacao Context7, texto para usuario, AWS CLI
-- **skills/**: orquestracao de commits, worker por repositorio, convencoes NestJS/Angular, deploy de AWS Lambda, verification-before-completion, systematic-debugging (+ artefatos de debug), using-psters-workflow, orchestrating-multi-agents, requesting-code-review, receiving-code-review, finishing-a-development-branch, test-driven-development (opt-in), git-worktree
+- **rules/**: convencoes de commit, disciplina de markdown, migrations Prisma, documentacao Context7, texto para usuario, AWS CLI
+- **skills/**: orquestracao de commits, worker por repositorio, convencoes NestJS/Next.js/Angular, deploy de AWS Lambda, verification-before-completion, systematic-debugging (+ artefatos de debug), using-psters-workflow, orchestrating-multi-agents, requesting-code-review, receiving-code-review, finishing-a-development-branch, test-driven-development (opt-in), git-worktree
 - **agents/**: suite completa de agentes — review (simplicidade, seguranca, arquitetura, schema-drift, performance etc.), design, docs, research, workflow
-- **commands/**: `pwf-help`, `pwf-setup`, `pwf-setup-workspace`, `pwf-brainstorm`, `pwf-plan`, `pwf-clarify`, `pwf-checklist`, `pwf-analyze`, `pwf-work-plan`, `pwf-work`, `pwf-work-light`, `pwf-work-tdd`, `pwf-review`, `pwf-doc`, `pwf-doc-foundation`, `pwf-doc-runbook`, `pwf-doc-capture`, `pwf-doc-refresh`, `pwf-aws-lambda-deploy`, `pwf-commit-changes`
-- **presets/**: presets de workflow (`general`, `nestjs-api`, `angular-feature`, `lambda-pipeline`, `bugfix-hotfix`)
+- **workflows/**: `pwf-help`, `pwf-setup`, `pwf-setup-workspace`, `pwf-brainstorm`, `pwf-plan`, `pwf-clarify`, `pwf-checklist`, `pwf-analyze`, `pwf-work-plan`, `pwf-work`, `pwf-work-light`, `pwf-work-tdd`, `pwf-review`, `pwf-doc`, `pwf-doc-foundation`, `pwf-doc-runbook`, `pwf-doc-capture`, `pwf-doc-refresh`, `pwf-aws-lambda-deploy`, `pwf-commit-changes`
+- **presets/**: presets de workflow (`general`, `nestjs-api`, `nextjs-prisma`, `angular-feature`, `lambda-pipeline`, `bugfix-hotfix`)
 - **extensions/**: hook points de extensao (`before_plan`, `after_plan`, `before_work_plan`, `after_work_plan`, `before_work`, `after_work`)
 
 ### Fronteira de escopo de docs
@@ -156,7 +156,7 @@ Para validar prontidao de submissao:
 Este plugin reforca:
 
 - **Contextualizacao**: `/pwf-work` e `/pwf-work-plan` leem docs primeiro, sem pular direto para implementacao.
-- **Documentacao**: ambos os comandos atualizam docs como parte obrigatoria do fluxo (doc-shepherd, docs de modulo/feature/lambda).
+- **Documentacao**: ambos os comandos atualizam docs como parte obrigatoria do fluxo (doc-shepherd, docs de modulo/feature/infraestrutura).
 - **Estrutura**: fases, tarefas, loops de review e convencoes de commit mantem rastreabilidade.
 
 ### Workflow
