@@ -49,7 +49,7 @@ Commands answer: "What flow should run now?"
 
 ## Rules: the policy layer
 
-Rules live in `.cursor/rules/` and `plugins/psters-ai-workflow/rules/`.
+Rules live in `.windsurf/rules/` and `plugins/psters-ai-workflow/rules/`.
 
 Rules are persistent constraints that shape behavior regardless of prompt style:
 

@@ -49,7 +49,7 @@ Commands respondem: "Qual fluxo deve rodar agora?"
 
 ## Rules: camada de politica
 
-Rules vivem em `.cursor/rules/` e `plugins/psters-ai-workflow/rules/`.
+Rules vivem em `.windsurf/rules/` e `plugins/psters-ai-workflow/rules/`.
 
 Sao restricoes persistentes que valem independentemente do estilo do prompt:
 

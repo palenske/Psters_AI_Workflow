@@ -4,6 +4,26 @@ All notable changes to this project will be documented in this file.
 
 The format is inspired by Keep a Changelog.
 
+## [1.1.0] - 2026-05-05
+
+### Changed
+
+- Official support narrowed to **Windsurf** and **OpenCode** only. Cursor, Claude Code, and Trae integrations removed.
+- Restructured repository: removed `.cursor/`, `.cursor-plugin/`, `.trae/`, `.claude/`, and `plugins/` directories.
+- Main `README.md` rewritten to focus on Windsurf and OpenCode installation and usage.
+- `.windsurf/README.md` updated — Windsurf is now a first-class platform, not an adaptation.
+- `scripts/install-workflow-bridge.mjs` rewritten for Windsurf and OpenCode only.
+- `docs/english/other-editors.md` and `docs/portuguese/other-editors.md` rewritten to document Windsurf and OpenCode setup.
+
+### Added
+
+- `.opencode/` directory with full OpenCode adaptation: 20 commands, 46 agents, 21 skills, consolidated rules in `AGENTS.md`.
+
+### Removed
+
+- `.claude/`, `.cursor/`, `.cursor-plugin/`, `.trae/`, `plugins/` directories and all contained files.
+- `scripts/install-plugin-local.sh` and `scripts/install-claude-code.sh`.
+
 ## [1.0.0] - 2026-03-18
 
 ### Added

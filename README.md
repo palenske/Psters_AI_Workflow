@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="plugins/psters-ai-workflow/assets/logo.svg" alt="Psters AI Workflow logo" width="72" />
+  <img src=".windsurf/assets/logo.svg" alt="Psters AI Workflow logo" width="72" />
 </p>
 <h1 align="center">Pster's AI Workflow</h1>
 <p align="center">
@@ -10,10 +10,13 @@
 </p>
 <p align="center">
   <img src="https://img.shields.io/badge/commands-20-7c3aed?style=for-the-badge" alt="Commands: 20">
-  <img src="https://img.shields.io/badge/agents-45-2563eb?style=for-the-badge" alt="Agents: 45">
-  <img src="https://img.shields.io/badge/hooks-4-0d9488?style=for-the-badge" alt="Hooks: 4">
-  <img src="https://img.shields.io/badge/rules-8-f59e0b?style=for-the-badge" alt="Rules: 8">
-  <img src="https://img.shields.io/badge/skills-17-16a34a?style=for-the-badge" alt="Skills: 17">
+  <img src="https://img.shields.io/badge/agents-46-2563eb?style=for-the-badge" alt="Agents: 46">
+  <img src="https://img.shields.io/badge/rules-10-f59e0b?style=for-the-badge" alt="Rules: 10">
+  <img src="https://img.shields.io/badge/skills-21-16a34a?style=for-the-badge" alt="Skills: 21">
+</p>
+<p align="center">
+  <strong>Officially supported:</strong>
+  <a href="https://windsurf.com">Windsurf</a> · <a href="https://opencode.ai">OpenCode</a>
 </p>
 
 An auto-documenting, model-agnostic AI workflow for any project, framework, and language. It reduces hallucination and keeps delivery predictable: the developer controls the path, AI executes the steps, and project standards stay consistent.
@@ -84,32 +87,27 @@ Deep dive:
 
 ### Supported Platforms
 
-| Platform | Directory | Install Command |
-|----------|-----------|-----------------|
-| **Claude Code** | `.claude/` + `.claude-plugin/` | `./scripts/install-claude-code.sh [project-path]` |
-| **Trae** | `.trae/` | `node scripts/install-workflow-bridge.mjs --to trae --project /path/to/project` |
-| **Cursor** | `plugins/` | `./scripts/install-plugin-local.sh` |
+| Platform | Directory | Install |
+|----------|-----------|---------|
+| **Windsurf** | `.windsurf/` | Copy `.windsurf/` to your project root |
+| **OpenCode** | `.opencode/` | Copy `.opencode/` to your project root |
 
 ### 1) Install and start using immediately
 
-**For Claude Code:**
+**For Windsurf:**
 ```bash
-./scripts/install-claude-code.sh /path/to/your/project
+cp -r .windsurf/ /path/to/your/project/
 ```
 
-**For Trae:**
+**For OpenCode:**
 ```bash
-node scripts/install-workflow-bridge.mjs --to trae --project /path/to/your/project
+cp -r .opencode/ /path/to/your/project/
 ```
 
-**For Cursor:**
+**Install for both platforms:**
 ```bash
-./scripts/install-plugin-local.sh
-```
-
-**Install for all platforms at once:**
-```bash
-node scripts/install-workflow-bridge.mjs --to all --project /path/to/your/project
+cp -r .windsurf/ /path/to/your/project/
+cp -r .opencode/ /path/to/your/project/
 ```
 
 After installation, restart your editor and start with:
@@ -121,7 +119,7 @@ After installation, restart your editor and start with:
 Recommended setup:
 
 1. `/pwf-setup-workspace` to create `<ProjectName>_Repos` + `<ProjectName>_Workspace`.
-2. Open the generated `.code-workspace` in Cursor.
+2. Open the generated workspace in Windsurf (or navigate to it in OpenCode).
 3. `/pwf-setup` to initialize docs skeleton.
 4. `/pwf-doc-foundation all` to create baseline docs.
 
@@ -143,6 +141,20 @@ If you are unsure about any command, run `/pwf-help` and ask it to explain that 
 Need a deeper onboarding path?
 - [English Getting Started (Wiki)](https://github.com/J-Pster/Psters_AI_Workflow/wiki/English-Getting-Started)
 - [English Commands Reference (Wiki)](https://github.com/J-Pster/Psters_AI_Workflow/wiki/English-Commands-Reference)
+
+### Platform-specific notes
+
+**Windsurf:**
+- Uses extensions system for lifecycle hooks (`before_plan`, `after_plan`, `before_work`, `after_work`)
+- Supports presets via `presets/presets.json`
+- MCP configured via `mcp.json` (Context7 included)
+
+**OpenCode:**
+- Commands are invoked via `/pwf-*` in the TUI
+- Subagents invoked via `@agent-name` mention
+- Skills auto-discovered from `.opencode/skills/`
+- MCP configured via `opencode.json` (Context7 included)
+- Rules consolidated into `.opencode/AGENTS.md`
 
 ### Primary workflow steps
 
@@ -214,7 +226,7 @@ Learn the full rationale:
 
 ## 🚀 Why Teams Choose It
 
-- **Modular by design:** commands, skills, agents, rules, and hooks each have clear responsibilities.
+- **Modular by design:** commands, skills, agents, rules each have clear responsibilities.
 - **Dynamic rigor:** small tasks can move fast; critical tasks can activate stronger guardrails and deeper analysis.
 - **Documentation as system memory:** project `docs/` is continuously generated, updated, and reused for future work.
 - **Project-agnostic:** usable in new or existing projects, across stacks and languages.
@@ -316,32 +328,27 @@ Aprofundar:
 
 ### Plataformas Suportadas
 
-| Plataforma | Diretório | Comando de Instalação |
-|------------|-----------|----------------------|
-| **Claude Code** | `.claude/` + `.claude-plugin/` | `./scripts/install-claude-code.sh [caminho-projeto]` |
-| **Trae** | `.trae/` | `node scripts/install-workflow-bridge.mjs --to trae --project /caminho/do/projeto` |
-| **Cursor** | `plugins/` | `./scripts/install-plugin-local.sh` |
+| Plataforma | Diretório | Instalação |
+|------------|-----------|------------|
+| **Windsurf** | `.windsurf/` | Copie `.windsurf/` para a raiz do projeto |
+| **OpenCode** | `.opencode/` | Copie `.opencode/` para a raiz do projeto |
 
 ### 1) Instalar e começar a usar na hora
 
-**Para Claude Code:**
+**Para Windsurf:**
 ```bash
-./scripts/install-claude-code.sh /caminho/do/seu/projeto
+cp -r .windsurf/ /caminho/do/seu/projeto/
 ```
 
-**Para Trae:**
+**Para OpenCode:**
 ```bash
-node scripts/install-workflow-bridge.mjs --to trae --project /caminho/do/seu/projeto
+cp -r .opencode/ /caminho/do/seu/projeto/
 ```
 
-**Para Cursor:**
+**Instalar para ambas plataformas:**
 ```bash
-./scripts/install-plugin-local.sh
-```
-
-**Instalar para todas as plataformas de uma vez:**
-```bash
-node scripts/install-workflow-bridge.mjs --to all --project /caminho/do/seu/projeto
+cp -r .windsurf/ /caminho/do/seu/projeto/
+cp -r .opencode/ /caminho/do/seu/projeto/
 ```
 
 Após a instalação, reinicie seu editor e comece com:
@@ -353,7 +360,7 @@ Após a instalação, reinicie seu editor e comece com:
 Setup recomendado:
 
 1. `/pwf-setup-workspace` para criar `<NomeProjeto>_Repos` + `<NomeProjeto>_Workspace`.
-2. Abra o `.code-workspace` gerado no Cursor.
+2. Abra o workspace gerado no Windsurf (ou navegue até ele no OpenCode).
 3. `/pwf-setup` para inicializar o esqueleto de docs.
 4. `/pwf-doc-foundation all` para criar documentação base.
 
@@ -446,7 +453,7 @@ Entenda o racional completo:
 
 ## 🚀 Por Que Times Escolhem Este Workflow
 
-- **Modular por design:** commands, skills, agents, rules e hooks têm responsabilidades claras.
+- **Modular por design:** commands, skills, agents, rules têm responsabilidades claras.
 - **Rigor dinâmico:** tarefas pequenas avançam rápido; tarefas críticas ativam mais guardrails e análise.
 - **Documentação como memória de sistema:** `docs/` do projeto é gerada, atualizada e reutilizada continuamente.
 - **Agnóstico de projeto:** funciona em projetos novos ou existentes, em diferentes stacks e linguagens.

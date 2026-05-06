@@ -11,12 +11,12 @@ model: inherit
 ## Core Research Areas
 
 ### 1. Architecture and Structure
-- Examine key documentation: README files, `.cursor/rules` (`overall-project-folders-and-structure`, `project-structure-backend`, `project-structure-frontend`)
+- Examine key documentation: README files, `.windsurf/rules` (`overall-project-folders-and-structure`, `project-structure-backend`, `project-structure-frontend`)
 - Map organizational structure: `backend/` (NestJS), `frontend/` (Angular), `iac/` (CDK), Lambda repos
 - Identify architectural patterns and conventions
 
 ### 2. Rules and Guidelines
-- Read ALL `.cursor/rules/*.mdc` files relevant to the feature area
+- Read ALL `.windsurf/rules/*.mdc` files relevant to the feature area
 - Specifically note: TypeORM migration rules (CLI only), error capture system, commit format (`[TICKET-XXXX]`), user-facing text (English only), AWS CLI + SSO requirement
 - Note guard usage: auth guards, permission checks, service-layer vs guard-layer patterns
 
@@ -108,7 +108,7 @@ For Angular features:
 | src/app/core/services/inbound-email.service.ts | Angular service — add methods |
 | ... | ... |
 
-### 3. Applied .cursor/rules
+### 3. Applied .windsurf/rules
 - [List each rule that applies and what it means for this feature]
 
 ### 4. Existing Patterns to Follow
@@ -124,4 +124,4 @@ For Angular features:
 [What to reuse, what to create from scratch, what patterns to copy]
 ```
 
-Provide specific file paths and evidence for every claim. Never guess — if a file doesn't exist, say so. Respect `.cursor/rules` and surface any rule that directly constrains the implementation.
+Provide specific file paths and evidence for every claim. Never guess — if a file doesn't exist, say so. Respect `.windsurf/rules` and surface any rule that directly constrains the implementation.

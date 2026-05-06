@@ -1,36 +1,27 @@
-# Cursor + Claude Code
+# Windsurf + OpenCode
 
-> **Recomendacao: use o Cursor.**
-> Este workflow e distribuido como um plugin nativo do Cursor. No Cursor, os slash commands, hooks e sub-agentes funcionam automaticamente sem nenhuma configuracao manual. Quando o plugin chegar ao Cursor Marketplace, as atualizacoes serao entregues automaticamente dentro do proprio Cursor — sem precisar tocar no terminal.
->
-> Enquanto o plugin ainda nao esta publicado no Marketplace, atualize fazendo pull do repositorio e rodando o script de instalacao novamente. O script e idempotente e seguro para rodar qualquer numero de vezes:
->
-> ```bash
-> git pull
-> ./scripts/install-plugin-local.sh
-> ```
+Este workflow e oficialmente suportado em **Windsurf** e **OpenCode**.
 
-Se voce nao pode usar o Cursor, use Claude Code como unico fallback suportado.
-
-A metodologia central e a mesma nos dois ambientes suportados: Cursor (principal) e Claude Code (fallback).
+Ambas as plataformas oferecem suporte nativo a slash commands, agentes especializados, habilidades reutilizaveis e workflows com foco em documentacao. Escolha a que melhor se encaixa no seu ambiente — a metodologia e identica.
 
 ---
 
 ## Ambientes suportados
 
-| Funcionalidade | Cursor | Claude Code |
-|----------------|--------|-------------|
+| Funcionalidade | Windsurf | OpenCode |
+|----------------|----------|----------|
 | Slash commands nativos | ✅ | ✅ |
-| Regras / contexto global | ✅ | ✅ via `CLAUDE.md` |
-| Hooks (guardrails de automacao) | ✅ | ❌ |
-| Sub-agentes (pesquisa paralela) | ✅ | Parcial |
-| Atualizacoes automaticas | ✅ Marketplace | Manual |
+| Regras / contexto global | ✅ `.windsurf/rules/` + `AGENTS.md` | ✅ `.opencode/AGENTS.md` |
+| Hooks de ciclo de vida | ✅ sistema de extensoes | ✅ embutidos nos comandos |
+| Sub-agentes (pesquisa paralela) | ✅ | ✅ via `@agente` |
+| Auto-descoberta de skills | ✅ | ✅ |
+| Integracao MCP | ✅ `mcp.json` | ✅ `opencode.json` |
+| Presets | ✅ `presets/presets.json` | ✅ via input |
+| Atualizacoes automaticas | Manual (copiar) | Manual (copiar) |
 
 ---
 
-## Claude Code
-
-[Claude Code](https://docs.anthropic.com/en/docs/claude-code) e a alternativa mais proxima do Cursor para este workflow. Ele usa o mesmo mecanismo de slash commands: arquivos markdown em `.claude/commands/` sao invocados com `/nome-do-comando`.
+## Windsurf
 
 ### Configuracao
 
@@ -40,35 +31,17 @@ A metodologia central e a mesma nos dois ambientes suportados: Cursor (principal
    git clone https://github.com/J-Pster/Psters_AI_Workflow.git
    ```
 
-2. Recomendado (automatizado): rode o instalador bridge a partir deste repositorio:
+2. Copie `.windsurf/` para a raiz do seu projeto:
 
    ```bash
-   node scripts/install-workflow-bridge.mjs --to claude --project /caminho/do/seu-projeto
+   cp -r Psters_AI_Workflow/.windsurf/ /caminho/do/seu-projeto/
    ```
 
-   Esse comando:
-   - copia os comandos para `/caminho/do/seu-projeto/.claude/commands/`
-   - cria/atualiza um bloco gerenciado de regras Psters em `/caminho/do/seu-projeto/CLAUDE.md`
-
-3. Alternativa manual: no seu projeto, crie o diretorio de comandos e copie os comandos do workflow:
-
-   ```bash
-   mkdir -p .claude/commands
-   cp /caminho/para/Psters_AI_Workflow/plugins/psters-ai-workflow/commands/*.md .claude/commands/
-   ```
-
-4. Crie ou adicione ao `CLAUDE.md` na raiz do seu projeto para carregar as regras do workflow como contexto global. Copie o conteudo das regras desejadas — comece com `context7-documentation.mdc` e `commits.mdc`:
-
-   ```bash
-   # Cria CLAUDE.md se nao existir
-   touch CLAUDE.md
-   ```
-
-   Em seguida, cole o conteudo dos arquivos de regra desejados de `plugins/psters-ai-workflow/rules/` no `CLAUDE.md`.
+3. Reinicie o Windsurf.
 
 ### Uso
 
-Rode o workflow no Claude Code exatamente como no Cursor:
+Rode o workflow no Windsurf exatamente como projetado:
 
 ```
 /pwf-brainstorm adicionar autenticacao de usuario com JWT
@@ -78,30 +51,87 @@ Rode o workflow no Claude Code exatamente como no Cursor:
 /pwf-commit-changes
 ```
 
-### O que funciona no Claude Code
+### O que funciona no Windsurf
 
-- **Todos os slash commands funcionam nativamente.** O formato de comando e identico ao Cursor.
-- **Regras funcionam** via `CLAUDE.md` (arquivo de contexto global lido automaticamente).
-- **Hooks nao funcionam.** O Claude Code nao tem sistema de hooks. A disciplina de documentacao e aplicada manualmente.
-- **Sub-agentes sao parciais.** Comandos que disparam multiplos agentes de pesquisa os executam sequencialmente na conversa, em vez de em paralelo.
+- **Todos os slash commands funcionam nativamente.** Arquivos em `.windsurf/workflows/` sao invocados como `/pwf-*`.
+- **Regras funcionam automaticamente.** Todos os arquivos `.mdc` em `.windsurf/rules/` sao carregados com `alwaysApply: true`.
+- **Sistema de extensoes funciona.** Hooks de ciclo de vida (`before_plan`, `after_plan`, `before_work`, `after_work`) fornecem orientacao adviser.
+- **Agentes funcionam nativamente.** Windsurf pode disparar subagentes diretamente dos comandos de workflow.
+- **Skills sao auto-descobertas.** `.windsurf/skills/` sao carregadas sob demanda.
+- **Presets estao disponiveis.** `presets/presets.json` influencia o enfase do planejamento.
 
-### Manter comandos atualizados
+### Manter atualizado
 
 ```bash
 cd Psters_AI_Workflow && git pull
-node scripts/install-workflow-bridge.mjs --to claude --project /caminho/do/seu-projeto
+cp -r .windsurf/ /caminho/do/seu-projeto/
 ```
 
-### Cursor + Claude ao mesmo tempo
+---
 
-Se quiser Cursor como principal e Claude como fallback:
+## OpenCode
+
+### Configuracao
+
+1. Clone este repositorio:
+
+   ```bash
+   git clone https://github.com/J-Pster/Psters_AI_Workflow.git
+   ```
+
+2. Copie `.opencode/` para a raiz do seu projeto:
+
+   ```bash
+   cp -r Psters_AI_Workflow/.opencode/ /caminho/do/seu-projeto/
+   ```
+
+3. Reinicie o OpenCode.
+
+### Uso
+
+Rode o workflow no OpenCode:
+
+```
+/pwf-brainstorm adicionar autenticacao de usuario com JWT
+/pwf-plan
+/pwf-work-plan
+```
+
+Invoque subagentes via `@`:
+
+```
+@repo-research-analyst Mapeie todo codigo existente relacionado a autenticacao
+@security-sentinel Revise este endpoint por vulnerabilidades de seguranca
+```
+
+### O que funciona no OpenCode
+
+- **Todos os slash commands funcionam nativamente.** Arquivos em `.opencode/commands/` sao invocados como `/pwf-*`.
+- **Regras consolidadas em AGENTS.md.** Todos os guardrails operacionais, padroes de commit, disciplina de migracao e politicas de build sao carregados de `.opencode/AGENTS.md`.
+- **Agentes funcionam como subagentes.** Definidos em `.opencode/agents/`, invocados via `@nome-do-agente`.
+- **Skills sao auto-descobertas.** `.opencode/skills/` sao carregadas sob demanda via ferramenta `skill`.
+- **Integracao MCP configurada.** Context7 esta configurado via `.opencode/opencode.json`.
+
+### Manter atualizado
 
 ```bash
-node scripts/install-workflow-bridge.mjs --to all --project /caminho/do/seu-projeto
+cd Psters_AI_Workflow && git pull
+cp -r .opencode/ /caminho/do/seu-projeto/
+```
+
+---
+
+## Ambas plataformas ao mesmo tempo
+
+Instale para Windsurf e OpenCode juntos:
+
+```bash
+cp -r Psters_AI_Workflow/.windsurf/ /caminho/do/seu-projeto/
+cp -r Psters_AI_Workflow/.opencode/ /caminho/do/seu-projeto/
 ```
 
 ---
 
 ## Resumo
 
-Cursor e o caminho principal e foco oficial. Se voce nao pode usar Cursor, **Claude Code e o unico fallback suportado** e preserva a experiencia de slash commands com configuracao minima.
+**Windsurf e OpenCode sao as plataformas oficiais.** Ambos oferecem suporte completo ao workflow com slash commands, agentes, skills e disciplina de documentacao. A metodologia e identica — escolha seu editor preferido.

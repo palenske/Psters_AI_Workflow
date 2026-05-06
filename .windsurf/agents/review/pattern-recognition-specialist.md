@@ -11,6 +11,6 @@ model: inherit
 2. **Check consistency** — Folder structure, naming, error capture, guards, interceptors.
 3. **Detect anti-patterns** — Business logic in controllers, god services, circular dependencies, inconsistent naming.
 4. **Duplication** — Logic that could be shared without over-abstracting.
-5. **Conventions** — Project rules in `.cursor/rules` (commits, TypeORM migrations, error capture, user-facing text).
+5. **Conventions** — Project rules in `.windsurf/rules` (commits, TypeORM migrations, error capture, user-facing text).
 
 **Output:** Findings with file/line references. Recommend concrete changes to align with patterns or remove anti-patterns. Apply patterns per layer (backend, frontend, Lambdas).

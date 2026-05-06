@@ -12,7 +12,7 @@ This workflow recommends a **two-folder project topology**:
 Separating code repositories from workflow context improves operational clarity:
 
 - code is isolated from workflow metadata and docs artifacts,
-- docs and `.cursor` instructions remain centralized,
+- docs and `.windsurf`/`.opencode` instructions remain centralized,
 - multi-repo projects become easier to navigate in one editor window.
 
 ## Recommended layout
@@ -24,12 +24,12 @@ Separating code repositories from workflow context improves operational clarity:
     backend/
   <ProjectName>_Workspace/
     docs/
-    .cursor/
-    .claude/
+    .windsurf/
+    .opencode/
     <ProjectName>.code-workspace
 ```
 
-## How to use in Cursor/VS Code
+## How to use in Windsurf/OpenCode/VS Code
 
 1. Open `<ProjectName>_Workspace/<ProjectName>.code-workspace`.
 2. Work from that multi-root workspace:

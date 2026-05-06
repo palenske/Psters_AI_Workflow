@@ -31,7 +31,7 @@ Examples of patterns worth documenting:
 Examples of things NOT worth documenting as a pattern:
 - Simple bug fixes that don't establish a pattern
 - One-off configuration changes
-- Things already in `.cursor/rules/` or `critical-patterns.md`
+- Things already in `.windsurf/rules/` or `critical-patterns.md`
 
 ---
 

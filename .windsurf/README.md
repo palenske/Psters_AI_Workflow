@@ -1,27 +1,27 @@
+# Psters AI Workflow — Windsurf Plugin
 
 ## Support Scope
 
-- Primary and official focus: **Windsurf**
-- Original plugin was designed for Cursor, adapted for Windsurf
-- Other editors are not an official support target for this plugin
+This is a first-class Windsurf plugin. Windsurf and OpenCode are the official platforms.
 
+Other editors are not an official support target.
 
-### Included
+## Included
 
-- **rules/**: commit conventions, markdown discipline, Prisma migrations, Context7 documentation
-- **skills/**: commit orchestration, per-repo commit worker, NestJS/Next.js/Angular conventions, AWS Lambda deploy, verification-before-completion, systematic-debugging (+ debug artifacts), using-psters-workflow, orchestrating-multi-agents, requesting-code-review, receiving-code-review, finishing-a-development-branch, test-driven-development (opt-in), git-worktree
-- **agents/**: full workflow agents — review (simplicity, security, architecture, schema-drift, performance, etc.), design, docs, research, workflow
+- **rules/**: commit conventions, markdown discipline, Prisma migrations, TypeORM migrations, Context7 documentation, operational guardrails, docs scope boundary, agent namespace, command naming prefixes, build policy
+- **skills/**: commit orchestration, per-repo commit worker, NestJS/Next.js/Angular conventions, AWS Lambda deploy, verification-before-completion, systematic-debugging (+ debug artifacts), using-psters-workflow, orchestrating-multi-agents, requesting-code-review, receiving-code-review, finishing-a-development-branch, test-driven-development (opt-in), git-worktree, docs baseline loading, docs maintenance, fast validation
+- **agents/**: full workflow agents — review (simplicity, security, architecture, schema-drift, performance, data integrity, etc.), design, docs, research, workflow
 - **workflows/**: `pwf-help`, `pwf-setup`, `pwf-setup-workspace`, `pwf-brainstorm`, `pwf-plan`, `pwf-clarify`, `pwf-checklist`, `pwf-analyze`, `pwf-work-plan`, `pwf-work`, `pwf-work-light`, `pwf-work-tdd`, `pwf-review`, `pwf-doc`, `pwf-doc-foundation`, `pwf-doc-runbook`, `pwf-doc-capture`, `pwf-doc-refresh`, `pwf-aws-lambda-deploy`, `pwf-commit-changes`
 - **presets/**: workflow presets (`general`, `nestjs-api`, `nextjs-prisma`, `angular-feature`, `lambda-pipeline`, `bugfix-hotfix`)
 - **extensions/**: extension hook points (`before_plan`, `after_plan`, `before_work_plan`, `after_work_plan`, `before_work`, `after_work`)
 
-### Docs scope boundary
+## Docs scope boundary
 
 - The repository-root `docs/` folder here documents the plugin itself.
 - The `docs/` folder managed by `/pwf-setup`, `/pwf-work`, and `/pwf-work-plan` is the target project documentation.
 - Keep these scopes separate to avoid mixing plugin docs with project operational docs.
 
-### Anti-vibe coding
+## Anti-vibe coding
 
 This plugin enforces:
 
@@ -29,11 +29,11 @@ This plugin enforces:
 - **Documentation**: Both commands update docs as part of their mandatory workflow (doc-shepherd, module/feature/infrastructure docs).
 - **Structure**: Phases, tasks, review loops, and commit conventions keep work traceable.
 
-### Workflow
+## Workflow
 
 `/pwf-brainstorm` -> `/pwf-plan` -> `[optional by user decision: /pwf-clarify /pwf-checklist /pwf-analyze]` -> `/pwf-work-plan` (or `/pwf-work` / `/pwf-work-light`) -> `[/pwf-review on demand]` -> `/pwf-commit-changes`
 
-### 30-second command chooser
+## 30-second command chooser
 
 Use this as a quick decision map. User chooses the path; the workflow does not auto-switch for you.
 
@@ -55,7 +55,7 @@ Use this as a quick decision map. User chooses the path; the workflow does not a
 | Create/update operational runbooks | `/pwf-doc-runbook` |
 | Refresh stale `docs/solutions/` entries interactively | `/pwf-doc-refresh` |
 
-### `/pwf-doc` family
+## `/pwf-doc` family
 
 - `/pwf-work`, `/pwf-work-plan`, `/pwf-work-light`, and `/pwf-work-tdd` already update docs as part of their workflow.
 - `/pwf-doc`: explicitly force canonical system documentation generation/update (module, feature, architecture, ADR, full update).
@@ -68,7 +68,7 @@ Use `/pwf-doc` for scoped technical docs, `/pwf-doc-foundation` for baseline pro
 
 > Important: `/pwf-doc` and `/pwf-doc-capture` complement work commands; they do not replace them.
 
-### Extensions System
+## Extensions System
 
 This plugin uses Windsurf's extensions system (`extensions/extensions.json`) for workflow lifecycle hooks:
 
@@ -76,9 +76,9 @@ This plugin uses Windsurf's extensions system (`extensions/extensions.json`) for
 - `before_work_plan`, `after_work_plan` - Advisory guidance around phase execution
 - `before_work`, `after_work` - Advisory guidance around direct work
 
-**Note**: The original Cursor plugin had automated hooks for tracking edits and shell commands. These are not available in Windsurf due to different extension architecture. See `.windsurf/docs/hooks-reference.md` for details on original functionality.
+Current active extension: `default-plan-consistency-check` (runs `after_plan`)
 
-### Usage Notes
+## Usage Notes
 
 - Keep commits focused and ticket-aware when possible.
 - Use `/pwf-plan` for multi-step changes.
@@ -88,13 +88,13 @@ This plugin uses Windsurf's extensions system (`extensions/extensions.json`) for
 - Use `/pwf-review` before opening a pull request.
 - **Never skip documentation** — `/pwf-work` and `/pwf-work-plan` update docs as part of the flow.
 
-### Presets and extensions (current practical status)
+## Presets and extensions (current practical status)
 
 - **Presets** (`presets/presets.json`): currently influence planning emphasis and review focus when `/pwf-plan` receives `preset:<name>`.
 - **Extensions** (`extensions/extensions.json`): hook-point system is available, but only one extension is active by default (`after_plan` advisory).
 - This is intentional: core workflow remains predictable, while extension points exist for gradual project-specific customization.
 
-### Context7 MCP
+## Context7 MCP
 
 This plugin includes `mcp.json` with a Context7 MCP server setup.
 
@@ -108,38 +108,29 @@ Use this flow whenever implementation depends on external library/framework docs
 
 <a id="plugin-explicado-portugues-pt-br"></a>
 
-## Visão Geral do Plugin (Português - PT-BR)
+## Visao Geral do Plugin (Portugues - PT-BR)
 
-Plugin de workflow diario de IA para Cursor. **Anti-vibe-coding** por design.
+Plugin de workflow diario de IA para Windsurf. **Anti-vibe-coding** por design.
 
 ### Escopo de suporte
 
-- Foco principal e oficial: **Cursor**
-- Fallback suportado: **Claude Code** (via `node scripts/install-workflow-bridge.mjs --to claude --project <caminho>`)
+- Plataformas oficiais: **Windsurf** e **OpenCode**
 - Outros editores nao sao alvo de suporte oficial deste plugin
 
 ### Instalacao
 
-### Marketplace
+Copie o diretorio `.windsurf/` para a raiz do seu projeto:
 
-Quando publicado, instale via [Cursor Marketplace](https://cursor.com/marketplace).
+```bash
+cp -r .windsurf/ /caminho/do/seu/projeto/
+```
 
-### Instalacao manual
-
-1. Rode:
-   - `./scripts/install-plugin-local.sh`
-2. Reinicie o Cursor (ou recarregue a janela) para ativar.
-
-Este plugin tambem esta registrado em `.cursor-plugin/marketplace.json` neste repositorio.
-
-Para validar prontidao de submissao:
-
-`node scripts/validate-template.mjs`
+Reinicie o Windsurf para ativar.
 
 ### O que esta incluido
 
-- **rules/**: convencoes de commit, disciplina de markdown, migrations Prisma, documentacao Context7, texto para usuario, AWS CLI
-- **skills/**: orquestracao de commits, worker por repositorio, convencoes NestJS/Next.js/Angular, deploy de AWS Lambda, verification-before-completion, systematic-debugging (+ artefatos de debug), using-psters-workflow, orchestrating-multi-agents, requesting-code-review, receiving-code-review, finishing-a-development-branch, test-driven-development (opt-in), git-worktree
+- **rules/**: convencoes de commit, disciplina de markdown, migrations Prisma e TypeORM, documentacao Context7, guardrails operacionais, fronteira de escopo de docs
+- **skills/**: orquestracao de commits, worker por repositorio, convencoes NestJS/Next.js/Angular, deploy de AWS Lambda, verification-before-completion, systematic-debugging (+ artefatos de debug), using-psters-workflow, orchestrating-multi-agents, requesting-code-review, receiving-code-review, finishing-a-development-branch, test-driven-development (opt-in), git-worktree, docs baseline loading, docs maintenance, fast validation
 - **agents/**: suite completa de agentes — review (simplicidade, seguranca, arquitetura, schema-drift, performance etc.), design, docs, research, workflow
 - **workflows/**: `pwf-help`, `pwf-setup`, `pwf-setup-workspace`, `pwf-brainstorm`, `pwf-plan`, `pwf-clarify`, `pwf-checklist`, `pwf-analyze`, `pwf-work-plan`, `pwf-work`, `pwf-work-light`, `pwf-work-tdd`, `pwf-review`, `pwf-doc`, `pwf-doc-foundation`, `pwf-doc-runbook`, `pwf-doc-capture`, `pwf-doc-refresh`, `pwf-aws-lambda-deploy`, `pwf-commit-changes`
 - **presets/**: presets de workflow (`general`, `nestjs-api`, `nextjs-prisma`, `angular-feature`, `lambda-pipeline`, `bugfix-hotfix`)
@@ -198,19 +189,15 @@ Use `/pwf-doc` para docs tecnicas por escopo, `/pwf-doc-foundation` para context
 
 > Importante: `/pwf-doc` e `/pwf-doc-capture` complementam os comandos de trabalho; nao substituem esses comandos.
 
-### Automacao com Hooks
+### Sistema de Extensoes
 
-Este plugin inclui hooks em `hooks/hooks.json` para reforcar anti-vibe-coding:
+Este plugin usa o sistema de extensoes do Windsurf (`extensions/extensions.json`) para hooks de ciclo de vida do workflow:
 
-- `afterFileEdit` -> rastreia se a sessao alterou codigo e/ou docs.
-- `stop` -> lembra de rodar `/pwf-doc update` (e `/pwf-doc-capture`, quando fizer sentido) se houve mudanca de codigo sem atualizar docs.
-- `beforeShellExecution` (matcher: `git commit`) -> lembra convencao de commit (`[TICKET-XXXX] ...`).
-- `afterShellExecution` (matcher: `typeorm:generate`) -> lembra cadeia atomica de migrations.
+- `before_plan`, `after_plan` - Orientacao adviser sobre planejamento
+- `before_work_plan`, `after_work_plan` - Orientacao adviser sobre execucao de fases
+- `before_work`, `after_work` - Orientacao adviser sobre trabalho direto
 
-Telemetria opcional (opt-in):
-
-- Defina `PSTERS_WORKFLOW_TELEMETRY_OPT_IN=true` para gravar eventos locais de hooks em `.cursor/hooks/state/psters-ai-workflow-telemetry.jsonl`.
-- Padrao: desativada.
+Extensao ativa por padrao: `default-plan-consistency-check` (executa `after_plan`)
 
 ### Notas de uso
 
