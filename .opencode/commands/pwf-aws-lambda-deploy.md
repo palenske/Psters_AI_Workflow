@@ -6,7 +6,7 @@ description: "Deploy Lambda functions using the guaranteed deploy scripts only. 
 
 Use this command to deploy Lambda changes safely through project-approved deploy scripts (default AWS CLI flow, no CDK/IaC deploy path unless project overrides allow).
 
-Operational guardrails source: `rules/operational-guardrails.mdc`
+Operational guardrails source: `AGENTS.md (#operational-guardrails)`
 Optional project override source: `docs/workflow/operational-overrides.md`
 
 ## Step 1: Detect script availability

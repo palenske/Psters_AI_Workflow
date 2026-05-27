@@ -178,7 +178,7 @@ phased: true | false
 1. **Overview** — Problem/Motivation, what we're building, who it's for
 2. **Scope / Work Breakdown** — (if applicable from 2b) Groups of requirements mapped to phases
 3. **Proposed Solution** — Architecture, data model, key design decisions. Reference brainstorm decisions if one exists.
-4. **Technical Considerations** — Reference project rules (TypeORM, error capture, English text), `docs/solutions/` patterns, security notes, migration safety
+4. **Technical Considerations** — Reference project rules (ORM discipline, error capture, English text), `docs/solutions/` patterns, security notes, migration safety
 5. **Acceptance Criteria** — From spec-flow-analyzer: Given/When/Then covering happy path, all roles, and error states
 6. **Implementation Plan** — Phases or flat tasks (see format below)
 7. **Master Checklist** — Every task as a checkbox
@@ -270,7 +270,7 @@ Every task MUST NOT have:
 - Multiple unrelated concerns in one task
 - Missing IDs, missing file paths, or missing `[USx]` labels for story-phase tasks
 
-**Migration tasks are special:** When a phase includes entity changes that require a migration, the migration task MUST explicitly state: "Generate migration → drift-check → run locally IMMEDIATELY (atomic chain — see typeorm-migrations rule)." This prevents the AI from deferring the local run, which causes schema drift in subsequent migrations.
+**Migration tasks are special:** When a phase includes entity changes that require a migration, the migration task MUST explicitly state: "Generate migration → drift-check → run locally IMMEDIATELY (atomic chain — see ORM migration discipline skill)." This prevents the AI from deferring the local run, which causes schema drift in subsequent migrations.
 
 **Self-validation:** After writing, review every task. Ask: "Could an AI execute this task by reading only this plan and the referenced files?" If no, rewrite it inline before presenting.
 
@@ -305,8 +305,8 @@ Present: plan summary, phase count, task count. Offer:
 
 ## Conventions
 
-- Follow canonical policy in `rules/operational-guardrails.mdc`.
-- Follow commit policy in `rules/commits.mdc`.
+- Follow canonical policy in `AGENTS.md (#operational-guardrails)`
+- Follow commit policy in `AGENTS.md (#commit-messages)`
 - Use optional project overrides in `docs/workflow/operational-overrides.md` when present.
 
 ## Next Recommended Commands

@@ -44,7 +44,7 @@ git -C <REPO_PATH> commit -m "<ticket-specific message>"
 
 This produces clean, reviewable git history with one commit per ticket per repo.
 
-## Commit message rules (rules/commits.mdc — always enforced)
+## Commit message rules (AGENTS.md (#commit-messages) — always enforced)
 
 ```
 [TICKET-XXXX] <emoji> <type>(<scope>): <subject>

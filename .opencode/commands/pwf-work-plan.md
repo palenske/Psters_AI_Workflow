@@ -105,15 +105,14 @@ Playbook mapping:
 
 If user explicitly requested TDD for this phase, apply `skills/test-driven-development/SKILL.md` for relevant tasks only.
 
-### ⚠️ CRITICAL: TypeORM Migration Atomic Chain (when applicable)
+### ⚠️ CRITICAL: Database Migration Atomic Chain (when applicable)
 
-Follow the migration chain defined in `rules/operational-guardrails.mdc` (generate -> drift-check -> local run).
-Treat this as blocking. Do not continue other tasks until the chain succeeds.
+Follow the migration discipline from the relevant skill (e.g., `skills/typeorm/SKILL.md` or `skills/prisma/SKILL.md`) for your ORM (generate -> drift-check -> local run). Treat this as blocking. Do not continue other tasks until the chain succeeds.
 
 ### Built-in capabilities (use as needed during execution):
 
-- **Operational policy source:** `rules/operational-guardrails.mdc`
-- **Project overrides (optional):** `docs/workflow/operational-overrides.md` (if present, it overrides defaults from guardrails)
+- **Operational policy source:** `AGENTS.md (#operational-guardrails)`
+- **Project overrides (optional):** `docs/workflow/operational-overrides.md` (if present, it overrides defaults from AGENTS.md)
 - **Database access:** Load DB vars from `backend/.env` (or project-specific env) for psql queries when applicable. Never display credentials.
 - **Context7:** Use the Context7 MCP (`resolve-library-id` then `query-docs`) before implementing with external libraries.
 
@@ -159,7 +158,7 @@ Summarize: what was implemented, files changed, any deferred items.
 
 ### Verification Evidence (MANDATORY before completion claims)
 
-Before claiming phase completion/fix success, apply `skills/verification-before-completion/SKILL.md` and use the evidence format from `rules/operational-guardrails.mdc`.
+Before claiming phase completion/fix success, apply `skills/verification-before-completion/SKILL.md` and use the evidence format from `AGENTS.md (#operational-guardrails)`.
 
 Include a dedicated **Documentation updates** subsection:
 
@@ -183,6 +182,6 @@ Before finalizing, note that `after_work_plan` extensions provide advisory guida
 
 ## Conventions
 
-- Follow canonical policy in `rules/operational-guardrails.mdc`.
-- Follow commit policy in `rules/commits.mdc`.
+- Follow canonical policy in `AGENTS.md (#operational-guardrails)`
+- Follow commit policy in `AGENTS.md (#commit-messages)`
 - Use optional project overrides in `docs/workflow/operational-overrides.md` when present.

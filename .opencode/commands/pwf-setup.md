@@ -28,8 +28,7 @@ This command is intentionally deterministic: it creates missing structure withou
 
 ## Important path boundary
 
-Do not redefine this policy inline. Follow the canonical boundary rule:
-- `rules/docs-scope-boundary.mdc`
+Do not redefine this policy inline. Follow the canonical boundary rule in `AGENTS.md (#docs-scope-boundary)`.
 
 When running `/pwf-setup`, always create/update the **project docs** structure defined by that rule.
 

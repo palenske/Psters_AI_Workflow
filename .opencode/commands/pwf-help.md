@@ -62,10 +62,10 @@ Always use prefixed command names (`/pwf-*`) when presenting examples.
 Use this map when the user asks how the plugin pieces connect:
 
 - `workflows/` — user entry points (`/pwf-*`). They orchestrate the workflow.
-- `rules/` — guardrails applied during execution (naming, migrations, docs policy, safety).
+- `AGENTS.md` — guardrails applied during execution (naming, migrations, docs policy, safety).
 - `skills/` — reusable procedural playbooks invoked by workflows (debugging, verification, commit orchestration).
 - `agents/` — specialized subagent definitions that workflows spawn for focused work (research, review, docs, workflow sync).
-- `extensions/` — hook-based extensions for workflow lifecycle events (before/after plan, work, work-plan).
+- `assets/` — supporting resources (review agent selection mapping, documentation playbooks).
 
 Execution model in practice:
 `workflow` -> applies `rules` -> may call `skills` -> may execute `agents` -> `extensions` provide advisory guidance at lifecycle events.

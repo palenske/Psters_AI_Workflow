@@ -68,7 +68,7 @@ For every async operation (Lambda, SQS, email delivery):
 - What if an external person replies to an email chain not started from the system?
 
 ### Step 9: Security Considerations
-Apply rules from `.opencode/rules/` and `docs/solutions/`:
+Apply rules from `AGENTS.md` and `docs/solutions/`:
 - Can a Contributor read the email body of a project email they have access to, even if it contains data about another project?
 - Can an HO craft a compose request to email recipients outside their permitted set? (API-level enforcement required, not just frontend)
 - Is the Mailgun inbound webhook protected against spoofing (signature validation)?

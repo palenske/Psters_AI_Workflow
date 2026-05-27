@@ -15,7 +15,7 @@ Your output helps the brainstorm capture UX decisions early — before a plan is
 ### Step 1: Read Context
 - Read `docs/brainstorms/` for the current feature brainstorm (especially the UI Sketch section).
 - Explore `frontend/src/app/features/` (or equivalent) to understand existing component patterns.
-- Note relevant design system rules from `.opencode/rules/no-left-borders.mdc` and `error-capture-system.mdc`.
+- Note relevant design system rules from `.opencode/skills/` and `AGENTS.md (#docs-scope-boundary)`.
 
 ### Step 2: Pattern Audit (What Already Exists)
 Search the frontend codebase for patterns similar to the proposed UI:
@@ -44,7 +44,7 @@ For every significant UI element in the proposed feature, verify it has a define
 
 ### Step 5: Design System Violations
 Check for:
-- **No left border bars** (`.opencode/rules/no-left-borders.mdc`) — suggest alternatives
+- **No left border bars** (`.opencode/skills/` or design system patterns) — suggest alternatives
 - **No NgModules** — all components must be standalone
 - **No async in getters or template methods** (from `critical-patterns.md`)
 - **All user-facing text in English**

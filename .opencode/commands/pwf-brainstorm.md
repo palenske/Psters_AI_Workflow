@@ -89,7 +89,7 @@ Based on all agent findings, identify the **key open questions** â€” maximum 5 â
 Ask them **one at a time**, with **multiple choice answers** when possible. Continue until user says "proceed" or all critical questions are answered.
 
 **Focus only on questions that change the design.** Do not ask about:
-- Implementation details decided by project rules (TypeORM? if used. Which DB? if applicable.)
+- Implementation details decided by project rules (ORM discipline, DB choice, error handling conventions)
 - Patterns already established in `docs/solutions/patterns/critical-patterns.md`
 
 ---
@@ -162,8 +162,8 @@ Present the user with:
 
 ## Conventions
 
-- Follow canonical policy in `rules/operational-guardrails.mdc`.
-- Follow commit policy in `rules/commits.mdc`.
+- Follow canonical policy in `AGENTS.md (#operational-guardrails)`
+- Follow commit policy in `AGENTS.md (#commit-messages)`
 - Use optional project overrides in `docs/workflow/operational-overrides.md` when present.
 
 ## Next Recommended Commands

@@ -33,7 +33,7 @@ If empty, ask: "What should I implement with TDD?"
 
 ## Verification Evidence Format
 
-Use the shared evidence format from `rules/operational-guardrails.mdc`.
+Use the shared evidence format from `AGENTS.md (#operational-guardrails)`.
 
 Project-specific override is allowed via `docs/workflow/operational-overrides.md` (if present).
 

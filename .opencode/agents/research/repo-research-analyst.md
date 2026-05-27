@@ -16,7 +16,7 @@ temperature: 0.3
 - Identify architectural patterns and conventions
 
 ### 2. Rules and Guidelines
-- Read ALL `.opencode/rules/*.mdc` files relevant to the feature area
+- Read `.opencode/AGENTS.md` for relevant project policies and rules.
 - Specifically note: TypeORM migration rules (CLI only), error capture system, commit format (`[TICKET-XXXX]`), user-facing text (English only), AWS CLI + SSO requirement
 - Note guard usage: auth guards, permission checks, service-layer vs guard-layer patterns
 

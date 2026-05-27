@@ -9,7 +9,7 @@ Use this mapping to choose review agents consistently based on change scope.
 | `frontend/` or Angular touched | `angular-reviewer`, `julik-frontend-races-reviewer` |
 | `backend/` or NestJS touched | `nestjs-reviewer` |
 | `*-lambda/` or `*-processor/` touched | `lambda-reviewer` |
-| TypeORM migration/entity change | `data-integrity-guardian`, `schema-drift-detector` |
+| Database migration/entity change | `data-integrity-guardian`, `schema-drift-detector` |
 | Data-risky deploy/migration changes | `deployment-verification-agent` |
 | Auth, secrets, S3, uploads, permissions | `security-sentinel` |
 | New UI action, agent tool, command, prompt behavior | `agent-native-reviewer` |

@@ -31,7 +31,7 @@ Examples of patterns worth documenting:
 Examples of things NOT worth documenting as a pattern:
 - Simple bug fixes that don't establish a pattern
 - One-off configuration changes
-- Things already in `.opencode/rules/` or `critical-patterns.md`
+- Things already in `.opencode/skills/`, `AGENTS.md` or `critical-patterns.md`
 
 ---
 

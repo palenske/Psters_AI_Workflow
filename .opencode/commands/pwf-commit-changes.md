@@ -112,7 +112,7 @@ If any commit **failed**, show the error and suggest: "Fix the issue and re-run 
 
 ---
 
-## Commit Rules (rules/commits.mdc — always enforced)
+## Commit Rules (AGENTS.md (#commit-messages) — always enforced)
 
 - **Format**: `[TICKET-XXXX] <emoji> <type>(<scope>): <subject>`
 - **English only** — subject and all commit text in English.
