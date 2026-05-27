@@ -137,5 +137,5 @@ This is an adaptation from Windsurf to OpenCode:
 **Key differences:**
 - OpenCode doesn't have an extensions hook system — lifecycle guidance is embedded in command templates
 - OpenCode uses `@mention` for subagent invocation instead of Windsurf's agent selection UI
-- Skills are auto-discovered by OpenCode from `.opencode/skills/` and `.claude/skills/`
+- Skills are auto-discovered by OpenCode from `.opencode/skills/`
 - Rules are consolidated into a single `AGENTS.md` rather than individual `.mdc` files

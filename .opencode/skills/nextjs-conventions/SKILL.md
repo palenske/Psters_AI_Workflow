@@ -1,427 +1,408 @@
 ---
 name: nextjs-conventions
-description: Frontend/backend conventions for Next.js 14+ App Router projects: Server Components, Client Components, Route Handlers, data fetching, caching, project structure. Use when implementing or reviewing Next.js full-stack code.
+description: Frontend/backend conventions for Next.js 14+ App Router projects: Server Components, Client Components, Route Handlers, data fetching, caching, project structure, auth, cookies, and component decomposition.
 ---
 
 # Next.js 14+ Conventions
 
-When working in a Next.js 14+ project with App Router, follow these conventions for consistent, maintainable full-stack code.
+Use this skill when implementing or reviewing a Next.js App Router project. It is optimized for App Router structure, secure full-stack patterns, and modular maintainability.
 
-## Project Structure
+## Recommended project structure
 
 ```
 app/
-├── (groups)/           # Route groups for layout organization
+├── (groups)/              # Pathless route groups for layout organization
 │   ├── (marketing)/
 │   ├── (dashboard)/
 │   └── (auth)/
-├── api/                # Route Handlers
-├── layout.tsx          # Root layout
-├── page.tsx            # Home page
-├── loading.tsx         # Global loading UI
-├── error.tsx           # Global error UI
-├── not-found.tsx       # 404 page
+├── api/                   # Route handlers
+├── layout.tsx             # Root layout
+├── page.tsx               # Home or root page
+├── loading.tsx            # Global loading UI
+├── error.tsx              # Global error boundary
+├── not-found.tsx          # 404 page
+├── globals.css            # Global styles
 components/
-├── ui/                 # Presentational components
-├── forms/              # Form-specific components
-├── providers/          # Context providers (Client Components)
+├── ui/                    # Presentational primitives
+├── forms/                 # Form controls and form sections
+├── auth/                  # Auth-specific UI (sign-in, user menu)
+├── navigation/            # Header, sidebar, footer
+└── widgets/               # Reusable widgets
 lib/
-├── db.ts               # Database/ORM client
-├── auth.ts             # Auth configuration
-├── utils.ts            # Utility functions
-└── validations/        # Zod/yup schemas
+├── db.ts                  # Database / ORM client
+├── auth.ts                # Auth/session helpers
+├── fetchers.ts            # Server fetch and API helpers
+├── validation.ts          # Shared schema helpers
+└── errors.ts              # Standard error helpers
+schemas/
+├── auth.ts
+├── project.ts
+└── user.ts
+services/
+├── project-service.ts
+├── user-service.ts
+└── session-service.ts
+hooks/
+├── useCurrentUser.ts      # Client hook for user state
+└── useForm.ts
+types/
+└── next.d.ts
 ```
 
-## Server Components (Default)
+## App Router and route groups
 
-Server Components are the default in the App Router. Use them for:
+- The App Router is the default and should be used for new Next.js 14+ apps.
+- Use `(group)` folders for pathless layout organization, not for URL segments.
+- Keep URL structure clean with nested route folders like `app/dashboard/settings/page.tsx`.
+- Use `app/api/.../route.ts` for API route handlers.
+- Prefer `app/layout.tsx` and route-level layouts over global `pages/_app`.
 
-- Data fetching (ORM, APIs, databases)
-- Accessing backend resources directly
-- Keeping sensitive data/server logic on the server
-- Large dependencies that shouldn't reach the client
+## Server Components (default)
+
+Server Components are the default in App Router and should be the starting point for most pages.
+Use them for:
+
+- data fetching from your database or backend services
+- server-only dependencies and secrets
+- auth checks and session reads
+- reducing bundle size for the client
+
+### Example
 
 ```tsx
-// app/page.tsx - Server Component by default
 import { prisma } from '@/lib/db'
+import { getCurrentUser } from '@/lib/auth'
+import { ProjectList } from '@/components/project/ProjectList'
 
-export default async function Dashboard() {
-  // Fetch data directly on the server
-  const data = await prisma.projects.findMany()
-  
-  return (
-    <ul>
-      {data.map((project) => (
-        <li key={project.id}>{project.name}</li>
-      ))}
-    </ul>
-  )
-}
-```
+export default async function DashboardPage() {
+  const user = await getCurrentUser()
 
-### Data Fetching Patterns
+  if (!user) {
+    return <p>You must sign in to see your dashboard.</p>
+  }
 
-```tsx
-// Pattern 1: Direct ORM/database access
-async function getData() {
-  return await prisma.project.findMany()
-}
-
-// Pattern 2: Internal API call (if needed for cross-cutting concerns)
-async function getData() {
-  const res = await fetch('http://localhost:3000/api/projects', {
-    cache: 'no-store', // or 'force-cache' for static data
+  const projects = await prisma.project.findMany({
+    where: { ownerId: user.id },
+    orderBy: { updatedAt: 'desc' },
   })
-  return res.json()
-}
 
-// Pattern 3: External API with revalidation
-async function getData() {
-  const res = await fetch('https://api.example.com/data', {
-    next: { revalidate: 3600 } // Revalidate every hour
-  })
-  return res.json()
+  return <ProjectList projects={projects} />
 }
 ```
 
-## Client Components
+### When to use `'use client'`
 
-Mark with `'use client'` when you need:
+Use `'use client'` only when the component needs:
 
-- Browser APIs (localStorage, window, document)
-- React hooks (useState, useEffect, useContext)
-- Event handlers (onClick, onSubmit)
-- Third-party client libraries
+- browser APIs (`window`, `document`, `localStorage`, `sessionStorage`)
+- React hooks (`useState`, `useEffect`, `useMemo`, `useContext`)
+- event handlers and interactive behavior
+- client-only libraries (maps, charts, rich text editors)
 
-```tsx
-'use client'
+### Best practice: push client components down
 
-import { useState } from 'react'
-
-export function Counter() {
-  const [count, setCount] = useState(0)
-  
-  return (
-    <button onClick={() => setCount(count + 1)}>
-      Count: {count}
-    </button>
-  )
-}
-```
-
-### Best Practice: Push Client Components Down
-
-Keep as much code as possible on the server. Extract client interactivity into small, focused components:
+Keep pages and layout as Server Components. Extract the smallest possible interactive pieces into Client Components.
 
 ```tsx
-// app/page.tsx - Server Component
-import { DataTable } from '@/components/data-table' // Server
-import { EditButton } from '@/components/edit-button' // Client
+// app/dashboard/page.tsx (Server)
+import { ProjectTable } from '@/components/project/ProjectTable'
+import { AddProjectButton } from '@/components/project/AddProjectButton'
 
-export default async function Page() {
-  const data = await fetchData() // Server-side fetch
-  
+export default async function DashboardPage() {
+  const projects = await getProjects()
   return (
     <div>
-      <DataTable data={data} />
-      <EditButton /> {/* Only this part is client-side */}
+      <ProjectTable projects={projects} />
+      <AddProjectButton />
     </div>
   )
 }
 ```
 
-## Route Handlers (API Routes)
-
-Define in `route.ts` files inside `app/api/` or anywhere in `app/`:
-
 ```tsx
+'use client'
+import { useState } from 'react'
+import { ProjectForm } from '@/components/project/ProjectForm'
+
+export function AddProjectButton() {
+  const [open, setOpen] = useState(false)
+  return (
+    <>
+      <button onClick={() => setOpen(true)}>Add project</button>
+      {open ? <ProjectForm onClose={() => setOpen(false)} /> : null}
+    </>
+  )
+}
+```
+
+## Data fetching patterns
+
+### Direct server-side data access
+
+Prefer direct database or ORM access from Server Components when you control the app backend.
+
+```ts
+export async function getProjects() {
+  return prisma.project.findMany({ where: { published: true } })
+}
+```
+
+### Internal API fetch
+
+Use internal API fetch only when you need cross-cutting middleware, shared response shape, or when your app treats the API as the source of truth.
+
+```ts
+const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/projects`, {
+  cache: 'no-store',
+})
+const projects = await res.json()
+```
+
+### External API with revalidation
+
+```ts
+const res = await fetch('https://api.example.com/data', {
+  next: { revalidate: 60 },
+})
+return res.json()
+```
+
+### Cache strategy rules
+
+- `cache: 'no-store'` for auth-protected or always-fresh requests.
+- `next: { revalidate: 60 }` for ISR with periodic revalidation.
+- `cache: 'force-cache'` for static data that rarely changes.
+- use `dynamic = 'force-dynamic'` only when the page truly requires dynamic rendering.
+
+## Component decomposition and modularization
+
+### Recommended separation
+
+- `lib/` — server utilities, database client, auth helpers, fetch helpers
+- `services/` — business logic and application interactions
+- `schemas/` — Zod schemas and validators
+- `components/ui/` — generic presentational primitives
+- `components/forms/` — form inputs and validation wrappers
+- `components/auth/` — login, signup, user menu
+- `hooks/` — client-only custom hooks
+- `types/` — shared TypeScript types
+
+### Example layout
+
+- `app/(dashboard)/layout.tsx` — dashboard shell
+- `app/(dashboard)/page.tsx` — dashboard home
+- `app/(dashboard)/settings/page.tsx` — settings screen
+- `components/settings/SettingsForm.tsx` — client form
+- `services/settings-service.ts` — server business logic
+- `schemas/settings.ts` — validation rules
+
+### Recommended import style
+
+- Next/React imports first
+- external libraries second
+- internal modules last
+- group by purpose
+
+```ts
+import { cookies } from 'next/headers'
+import { z } from 'zod'
+import { prisma } from '@/lib/db'
+import { getCurrentUser } from '@/lib/auth'
+```
+
+## Route Handlers (`app/api/.../route.ts`)
+
+Use route handlers for full-stack API routes. Keep them thin and delegate business logic to services.
+
+### Basic conventions
+
+- export `GET`, `POST`, `PUT`, `PATCH`, `DELETE` functions
+- validate input with Zod or equivalent
+- use `NextResponse` for JSON and redirects
+- handle auth and permissions before side effects
+- return proper HTTP status codes
+- avoid duplicating business logic in page components
+
+### Example
+
+```ts
 // app/api/projects/route.ts
 import { NextResponse } from 'next/server'
 import { z } from 'zod'
+import { createProject } from '@/services/project-service'
+import { authMiddleware } from '@/lib/auth'
 
-const projectSchema = z.object({
+const createProjectSchema = z.object({
   name: z.string().min(1),
   description: z.string().optional(),
 })
 
-// GET /api/projects
 export async function GET() {
-  try {
-    const projects = await prisma.project.findMany()
-    return NextResponse.json(projects)
-  } catch (error) {
-    return NextResponse.json(
-      { error: 'Failed to fetch projects' },
-      { status: 500 }
-    )
-  }
+  const projects = await getProjects()
+  return NextResponse.json(projects)
 }
-
-// POST /api/projects
-export async function POST(request: Request) {
-  try {
-    const body = await request.json()
-    const validated = projectSchema.parse(body)
-    
-    const project = await prisma.project.create({
-      data: validated,
-    })
-    
-    return NextResponse.json(project, { status: 201 })
-  } catch (error) {
-    if (error instanceof z.ZodError) {
-      return NextResponse.json(
-        { error: 'Validation failed', details: error.errors },
-        { status: 400 }
-      )
-    }
-    return NextResponse.json(
-      { error: 'Failed to create project' },
-      { status: 500 }
-    )
-  }
-}
-```
-
-### Route Handler Conventions
-
-- Use `NextResponse` for consistent response formatting
-- Validate input with Zod or similar before processing
-- Return appropriate HTTP status codes (200, 201, 400, 401, 404, 500)
-- Handle errors gracefully with try/catch
-- **Never** expose sensitive error details to the client
-
-## Route Groups
-
-Use parentheses for route groups that don't affect URL structure:
-
-```
-app/
-├── (marketing)/
-│   ├── layout.tsx      # Marketing layout
-│   ├── page.tsx        # / (home)
-│   └── about/
-│       └── page.tsx    # /about
-├── (dashboard)/
-│   ├── layout.tsx      # Dashboard layout (sidebar, etc.)
-│   ├── dashboard/
-│   │   └── page.tsx    # /dashboard
-│   └── settings/
-│       └── page.tsx    # /dashboard/settings
-```
-
-## Loading and Error UI
-
-```tsx
-// app/loading.tsx
-export default function Loading() {
-  return <div className="loading-spinner">Loading...</div>
-}
-
-// app/error.tsx
-'use client'
-
-import { useEffect } from 'react'
-
-export default function Error({
-  error,
-  reset,
-}: {
-  error: Error & { digest?: string }
-  reset: () => void
-}) {
-  useEffect(() => {
-    console.error(error)
-  }, [error])
-
-  return (
-    <div>
-      <h2>Something went wrong</h2>
-      <button onClick={reset}>Try again</button>
-    </div>
-  )
-}
-
-// app/not-found.tsx
-export default function NotFound() {
-  return (
-    <div>
-      <h2>404 - Page Not Found</h2>
-      <p>The requested resource doesn't exist</p>
-    </div>
-  )
-}
-```
-
-### Error Boundary Pattern
-
-```tsx
-// components/error-boundary.tsx
-'use client'
-
-import { Component, ReactNode } from 'react'
-
-interface Props {
-  children: ReactNode
-  fallback: ReactNode
-}
-
-interface State {
-  hasError: boolean
-}
-
-export class ErrorBoundary extends Component<Props, State> {
-  constructor(props: Props) {
-    super(props)
-    this.state = { hasError: false }
-  }
-
-  static getDerivedStateFromError(): State {
-    return { hasError: true }
-  }
-
-  render() {
-    if (this.state.hasError) {
-      return this.props.fallback
-    }
-    return this.props.children
-  }
-}
-```
-
-## Caching and Revalidation
-
-### Static Data (Cached by Default)
-
-```tsx
-// Cached indefinitely (good for static content)
-const data = await fetch('https://api.example.com/static-data')
-```
-
-### Dynamic Data (No Cache)
-
-```tsx
-// Never cached - always fetch fresh
-const data = await fetch('https://api.example.com/live-data', {
-  cache: 'no-store',
-})
-```
-
-### Time-based Revalidation
-
-```tsx
-// Revalidate every hour
-const data = await fetch('https://api.example.com/data', {
-  next: { revalidate: 3600 },
-})
-```
-
-### On-Demand Revalidation
-
-```tsx
-// app/api/revalidate/route.ts
-import { revalidatePath } from 'next/cache'
 
 export async function POST(request: Request) {
-  const { path } = await request.json()
-  revalidatePath(path)
-  return NextResponse.json({ revalidated: true })
+  const user = await authMiddleware(request)
+  if (!user) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+  }
+
+  const body = await request.json()
+  const data = createProjectSchema.parse(body)
+  const project = await createProject({ userId: user.id, ...data })
+  return NextResponse.json(project, { status: 201 })
 }
 ```
 
-## Middleware
+### Error handling
 
-```tsx
-// middleware.ts (in project root)
+- catch validation errors and return `400`
+- return `401` for auth failures
+- return `403` for forbidden access
+- return `404` for missing resources
+- return `500` for unexpected server errors
+
+## Auth, cookies and sessions
+
+### Preferred session strategy
+
+- store session identifiers or refresh tokens in secure, `httpOnly`, same-site cookies
+- avoid localStorage for auth tokens
+- avoid exposing access tokens in client JS
+- use cookies for server-side auth in Server Components and route handlers
+
+### Cookie settings
+
+Use secure defaults for auth cookies:
+
+```ts
+const cookieOptions = {
+  httpOnly: true,
+  secure: process.env.NODE_ENV === 'production',
+  sameSite: 'lax' as const,
+  path: '/',
+}
+```
+
+### Server-side cookie access
+
+In server components and route handlers:
+
+```ts
+import { cookies } from 'next/headers'
+
+const sessionCookie = cookies().get('app-session')?.value
+```
+
+In route handlers:
+
+```ts
+const token = request.cookies.get('app-session')?.value
+```
+
+### Setting and clearing cookies in route handlers
+
+```ts
 import { NextResponse } from 'next/server'
-import type { NextRequest } from 'next/server'
 
-export function middleware(request: NextRequest) {
-  // Authentication check
-  const token = request.cookies.get('token')
-  
-  if (!token && request.nextUrl.pathname.startsWith('/dashboard')) {
-    return NextResponse.redirect(new URL('/login', request.url))
-  }
-  
-  return NextResponse.next()
+export async function POST(request: Request) {
+  const response = NextResponse.json({ success: true })
+  response.cookies.set('app-session', sessionToken, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'lax',
+    path: '/',
+    maxAge: 60 * 60 * 24 * 7,
+  })
+  return response
 }
 
-export const config = {
-  matcher: ['/dashboard/:path*', '/api/protected/:path*'],
+export async function DELETE() {
+  const response = NextResponse.json({ success: true })
+  response.cookies.delete('app-session', { path: '/' })
+  return response
 }
 ```
 
-## Server Actions (Optional Pattern)
+### Server auth helper pattern
 
-For forms and mutations, Server Actions provide a way to call server functions directly from components:
+Keep auth helpers centralized in `lib/auth.ts`:
+
+```ts
+import { cookies } from 'next/headers'
+import { verifySessionToken } from '@/services/session-service'
+
+export async function getCurrentUser() {
+  const token = cookies().get('app-session')?.value
+  if (!token) return null
+  return verifySessionToken(token)
+}
+```
+
+### Client-side auth behavior
+
+- use client hooks like `useCurrentUser()` only for UI state
+- fetch authenticated API routes from client components when necessary
+- prefer server-rendered auth-aware pages via Server Components for initial page load
+
+## UI and experience conventions
+
+### Loading and error UI
+
+- use `app/loading.tsx` for async loading states on server-rendered routes
+- use `app/error.tsx` for runtime error boundaries
+- use `app/not-found.tsx` for 404 pages
+
+### Form handling
+
+- validate input on the client and on the server
+- show field-level errors returned from API
+- keep form markup in reusable presentational components
+- delegate submit logic to Client Components or server actions
+
+### Server actions (advanced)
+
+Server actions are useful for form submission without an API route, but use them only when the handler belongs to the same page or component.
 
 ```tsx
-// app/actions.ts
 'use server'
 
 import { revalidatePath } from 'next/cache'
+import { createProject } from '@/services/project-service'
 
-export async function createProject(formData: FormData) {
-  const name = formData.get('name') as string
-  
-  await prisma.project.create({
-    data: { name },
+export async function createProjectAction(data: FormData) {
+  await createProject({
+    name: data.get('name')?.toString() ?? '',
   })
-  
   revalidatePath('/dashboard')
 }
-
-// app/page.tsx
-import { createProject } from './actions'
-
-export default function Page() {
-  return (
-    <form action={createProject}>
-      <input name="name" required />
-      <button type="submit">Create</button>
-    </form>
-  )
-}
 ```
 
-## Conventions Summary
+## Advanced conventions
 
-| Pattern | Recommendation |
-|---------|----------------|
-| **Default component type** | Server Component (no directive needed) |
-| **Client interactivity** | Extract to small `'use client'` components |
-| **Data fetching** | Server Components → direct ORM/API calls |
-| **Form submissions** | Server Actions or Route Handlers with validation |
-| **API routes** | Route Handlers in `app/api/.../route.ts` |
-| **Layout organization** | Route groups `(groupname)/` for shared layouts |
-| **Error handling** | `error.tsx` files + Error Boundaries for client parts |
-| **Loading states** | `loading.tsx` files for automatic Suspense boundaries |
-| **Validation** | Zod for runtime validation everywhere |
-| **Caching** | Use `cache: 'no-store'` for dynamic, `revalidate` for semi-static |
+- use `headers()` and `cookies()` only in server code and route handlers
+- prefer `generateMetadata` for dynamic page metadata
+- isolate layout-level rendering and keep components composable
+- use `dynamic='force-dynamic'` or `dynamic='force-static'` only when required by page semantics
+- keep shared logic in `lib/` or `services/`, not directly inside page components
+- treat API routes as contract boundaries, not as dump buckets for business logic
 
-## TypeScript Configuration
+## What to avoid
 
-Ensure `tsconfig.json` includes:
+- Do not make pages client components unless they need browser behavior.
+- Do not put secret or server-only logic in `components/` that will run on the client.
+- Do not store auth tokens in localStorage.
+- Do not fetch data inside client render if it can be fetched on the server.
+- Do not expose full error stack traces in responses.
+- Do not duplicate validation logic across API routes and services.
 
-```json
-{
-  "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["./*"]
-    }
-  }
-}
-```
+## Reference
 
-## What to Check
+Align implementation with Next.js official docs:
+- App Router: https://nextjs.org/docs/app
+- Route Handlers: https://nextjs.org/docs/app/building-your-application/routing/router-handlers
+- Server and Client Components: https://nextjs.org/docs/app/building-your-application/rendering/server-and-client-components
+- Cookies and headers: https://nextjs.org/docs/app/api-reference/functions/cookies
+- Authentication patterns: https://nextjs.org/docs/app/building-your-application/routing/middleware#authenticating-routes
 
-1. **Server/Client Boundary**: Is `'use client'` only used where truly needed?
-2. **Data Fetching**: Are Server Components fetching directly when possible?
-3. **Route Handlers**: Proper HTTP methods, input validation, error handling?
-4. **Error Boundaries**: Are errors caught and handled gracefully?
-5. **Caching Strategy**: Appropriate cache settings for data freshness needs?
-6. **Type Safety**: Proper TypeScript types throughout, no `any` without justification?
-
-Reference project rules and Next.js official docs for framework-specific patterns.

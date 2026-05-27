@@ -28,6 +28,7 @@ No rationalization. No skipping because task looks "simple".
 3. Domain/convention skills:
    - `nestjs-conventions`
    - `angular-conventions`
+   - `nextjs-conventions`
    - `deploy-lambda`
    - `commit-changes`
 

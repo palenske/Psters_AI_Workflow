@@ -33,6 +33,12 @@ Agents are organized by domain in `.opencode/agents/`:
 - **workflow**: Workflow execution and orchestration
 - **design**: UI/UX design and component generation
 
+Commands are the user-facing entry points in `.opencode/commands/`.
+Skills are reusable procedural playbooks in `.opencode/skills/`.
+Agents are specialized subagent instruction files in `.opencode/agents/`.
+
+OpenCode executes review agents as subagents. For example, the Next.js review specialist is defined in `.opencode/agents/review/nextjs-reviewer.md` and is intended to work with the Next.js conventions skill.
+
 ## Skills
 
 Reusable skills in `.opencode/skills/`:
@@ -45,6 +51,7 @@ Reusable skills in `.opencode/skills/`:
 - Framework-specific patterns (NestJS, Angular, Next.js)
 - ORM-specific migration discipline (TypeORM, Prisma) — technology-specific skills
 - Deployment workflows (Lambda, containers)
+- Next.js reviews and conventions are paired: `.opencode/skills/nextjs-conventions/SKILL.md` and `.opencode/agents/review/nextjs-reviewer.md`
 
 **Quality & Maintenance:**
 - Fast validation without full builds
@@ -54,6 +61,8 @@ Reusable skills in `.opencode/skills/`:
 ## Multi-agent Orchestration
 
 Parallel subagents are encouraged when tasks are independent.
+
+In OpenCode, the plugin uses the `task` tool plus `@agent` subagent invocation model. Skills are auto-discovered from `.opencode/skills/` and can be referenced by name in workflow instructions.
 
 Guardrails:
 - Keep one orchestrator owner.
@@ -182,7 +191,7 @@ Run full build ONLY when:
 ---
 
 # Context7 — Library Documentation First
-
+This plugin uses OpenCode MCP configuration in `.opencode/opencode.json` and `context7` to resolve framework and library documentation.
 **Always** use the Context7 MCP to fetch up-to-date documentation before implementing features or debugging issues that involve libraries or frameworks.
 
 ## How to Use

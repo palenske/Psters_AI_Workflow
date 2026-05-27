@@ -28,7 +28,8 @@ No completion claims without command evidence.
 
 ## Typical mappings
 
-- Build claim -> `npm run build` (or project equivalent)
+- Build claim -> `npm run build` when the user explicitly requests a full build
+- Fast validation claim -> `npm run validate` or `tsc --noEmit`
 - Lint claim -> linter command output with zero errors
 - Bug fix claim -> reproduction command/script no longer fails
 - Migration safety claim -> migration run and drift check evidence
