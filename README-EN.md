@@ -13,10 +13,10 @@
   <img src="https://img.shields.io/badge/agents-46-2563eb?style=for-the-badge" alt="Agents: 46">
   <img src="https://img.shields.io/badge/rules-10-f59e0b?style=for-the-badge" alt="Rules: 10">
   <img src="https://img.shields.io/badge/skills-21-16a34a?style=for-the-badge" alt="Skills: 21">
-  <img src="https://img.shields.io/badge/canonical--repo-1-2563eb?style=for-the-badge" alt="Canônico: Opencode">
+  <img src="https://img.shields.io/badge/canonical--repo-1-2563eb?style=for-the-badge" alt="Canonical: Opencode">
 </p>
 <p align="center">
-  <strong>Repositório canônico:</strong> Opencode (derivado): Windsurf
+  <strong>Canonical repository:</strong> Opencode (supported derivative): Windsurf
 </p>
 
 ## 🚀 Quick Start
@@ -25,10 +25,10 @@
 
 | Platform | Install | Status |
 |----------|---------|--------|
-| **Opencode** | `cp -r .opencode/ /path/to/your/project/` | ⭐ **Canônico** |
-| **Windsurf** | `cp -r .windsurf/ /path/to/your/project/` | ✅ Suportado |
+| **Opencode** | `cp -r .opencode/ /path/to/your/project/` | ⭐ **Canonical** |
+| **Windsurf** | `cp -r .windsurf/ /path/to/your/project/` | ✅ Supported |
 
-### For Opencode (Recomendado)
+### For Opencode (Recommended)
 
 1. Clone this repository:
    ```bash
@@ -69,51 +69,51 @@ cp -r Psters_AI_Workflow/.opencode/ /path/to/your-project/
 cp -r Psters_AI_Workflow/.windsurf/ /path/to/your-project/
 ```
 
-## 📋 Comandos Principais (20 /pwf-*)
+## 📋 Main Commands (20 /pwf-*)
 
-| Categoria | Comando | Descrição |
-|-----------|---------|-----------|
-| **Setup** | `/pwf-setup` | Inicializar esqueleto de docs do projeto |
-| **Workspace** | `/pwf-setup-workspace` | Criar estrutura multi-root (`*_Repos` + `*_Workspace`) |
-| **Brainstorm** | `/pwf-brainstorm` | Definir escopo, direção de arquitetura e decisões |
-| **Plan** | `/pwf-plan` | Gerar plano de implementação em fases |
-| **Quality Gates** | `/pwf-checklist` | Validar qualidade dos requisitos |
-| **Quality Gates** | `/pwf-clarify` | Resolver ambiguidades críticas |
-| **Quality Gates** | `/pwf-analyze` | Analise de consistência/cobertura (read-only) |
-| **Work** | `/pwf-work-plan` | Implementar uma fase do plano |
-| **Work** | `/pwf-work` | Executar mudanças focadas fora de plano formal |
-| **Review** | `/pwf-review` | Revisão estruturada multi-agente |
-| **Commit** | `/pwf-commit-changes` | Criar commits estruturados por ticket |
-| **Docs** | `/pwf-doc` | Documentação por escopo (módulo, feature, arquitetura) |
-| **Docs** | `/pwf-doc-foundation` | Docs de fundação (infra, arquitetura, integrações) |
-| **Docs** | `/pwf-doc-runbook` | Runbooks operacionais |
-| **Docs** | `/pwf-doc-capture` | Capturar aprendizados reutilizáveis |
-| **Docs** | `/pwf-doc-refresh` | Curar e atualizar `docs/solutions/` |
-| **Docs** | `/pwf-doc-update` | Atualizar documentação existente |
-| **Help** | `/pwf-help` | Guia de comandos e orientação de workflow |
-| **AWS** | `/pwf-aws-lambda-deploy` | Deploy de Lambda com verificação |
-| **Aux** | `/pwf-checklist` | Checklist de qualidade (extra) |
+| Category | Command | Description |
+|----------|---------|-------------|
+| **Setup** | `/pwf-setup` | Initialize project docs skeleton |
+| **Workspace** | `/pwf-setup-workspace` | Create multi-root structure (`*_Repos` + `*_Workspace`) |
+| **Brainstorm** | `/pwf-brainstorm` | Define scope, architecture direction, and decisions |
+| **Plan** | `/pwf-plan` | Generate phased implementation plan |
+| **Quality Gates** | `/pwf-checklist` | Validate requirement quality |
+| **Quality Gates** | `/pwf-clarify` | Resolve critical ambiguities |
+| **Quality Gates** | `/pwf-analyze` | Read-only consistency/coverage analysis |
+| **Work** | `/pwf-work-plan` | Implement one phase of the plan |
+| **Work** | `/pwf-work` | Execute focused changes outside formal plan |
+| **Review** | `/pwf-review` | Structured multi-agent review |
+| **Commit** | `/pwf-commit-changes` | Create structured ticket-aware commits |
+| **Docs** | `/pwf-doc` | Scoped documentation (module, feature, architecture) |
+| **Docs** | `/pwf-doc-foundation` | Foundation docs (infra, architecture, integrations) |
+| **Docs** | `/pwf-doc-runbook` | Operational runbooks |
+| **Docs** | `/pwf-doc-capture` | Capture reusable learnings |
+| **Docs** | `/pwf-doc-refresh` | Curate and update `docs/solutions/` |
+| **Docs** | `/pwf-doc-update` | Update existing documentation |
+| **Help** | `/pwf-help` | Command guide and workflow orientation |
+| **AWS** | `/pwf-aws-lambda-deploy` | Guarded Lambda deployment flow |
+| **Aux** | `/pwf-checklist` | Quality checklist (extra) |
 
-## 🔄 Fluxo de Workflow
+## 🔄 Workflow Flow
 
 ```mermaid
 %%{init: {"flowchart": {"curve": "linear", "rankSpacing": 40, "nodeSpacing": 28}} }%%
 flowchart LR
-  B["/pwf-brainstorm<br/>Definir escopo e decisões"] --> P["/pwf-plan<br/>Gerar plano em fases"]
+  B["/pwf-brainstorm<br/>Define scope and decisions"] --> P["/pwf-plan<br/>Generate phased plan"]
   P --> Q{"Quality Gates?"}
-  Q -->|Sim| C["/pwf-checklist<br/>Validar requisitos"]
-  C --> L["/pwf-clarify<br/>Resolver ambiguidades"]
-  L --> A["/pwf-analyze<br/>Analise de consistencia"]
-  A --> W["/pwf-work-plan<br/>Implementar fase"]
-  Q -->|Nao| W
+  Q -->|Yes| C["/pwf-checklist<br/>Validate requirements"]
+  C --> L["/pwf-clarify<br/>Resolve ambiguities"]
+  L --> A["/pwf-analyze<br/>Consistency analysis"]
+  A --> W["/pwf-work-plan<br/>Implement phase"]
+  Q -->|No| W
 
-  W --> R{"Fases pendentes?"}
-  R -->|Sim| W
-  R -->|Nao| V["/pwf-review<br/>Revisar findings"]
-  V --> M["/pwf-commit-changes<br/>Commits estruturados"]
+  W --> R{"More phases?"}
+  R -->|Yes| W
+  R -->|No| V["/pwf-review<br/>Review findings"]
+  V --> M["/pwf-commit-changes<br/>Structured commits"]
 
-  X["/pwf-work<br/>Caminho rápido (plano informal)"] -.-> V
-  D["Docs sao centrais:<br/>Leem e atualizam automaticamente"] -.-> W
+  X["/pwf-work<br/>Fast lane (informal plan)"] -.-> V
+  D["Docs are central:<br/>Read and update automatically"] -.-> W
   D -.-> X
 
   classDef core fill:#EEF2FF,stroke:#4F46E5,color:#111827,stroke-width:1.2px;
@@ -131,24 +131,24 @@ flowchart LR
   class Q,R decision;
 ```
 
-### Fluxo Padrão
+### Default Flow
 
-1. **/pwf-brainstorm** - Definir escopo, direção de arquitetura e decisões principais
-2. **/pwf-plan** - Gerar plano de implementação em fases
-3. **Quality Gates (opcional)** - `/pwf-checklist`, `/pwf-clarify`, `/pwf-analyze`
-4. **/pwf-work-plan** - Implementar uma fase por vez, repetindo até completar
-5. **/pwf-review** - Revisão profunda quando necessário
-6. **/pwf-commit-changes** - Commits estruturados por ticket
+1. **/pwf-brainstorm** - Define scope, architecture direction, and key decisions
+2. **/pwf-plan** - Generate phased implementation plan
+3. **Quality Gates (optional)** - `/pwf-checklist`, `/pwf-clarify`, `/pwf-analyze`
+4. **/pwf-work-plan** - Implement one phase at a time, repeating until complete
+5. **/pwf-review** - Deep review when needed
+6. **/pwf-commit-changes** - Structured ticket-aware commits
 
-### Fluxo Alternativo
+### Alternative Flow
 
-**/pwf-work** - Para mudanças focadas e rápidas fora de um plano formal
+**/pwf-work** - For focused, direct changes outside a formal plan
 
-### Fluxo de Docs
+### Documentation Flow
 
-Todas as mudanças seguem regras de:
-- Leitura obrigatória antes de implementar
-- Atualização automática de docs durante execução
+All changes follow rules for:
+- Mandatory reading before implementation
+- Automatic documentation updates during execution
 
 ## 📚 Documentation
 
@@ -172,31 +172,31 @@ Todas as mudanças seguem regras de:
 - [Por Dentro do Workflow](docs/portuguese/under-the-hood.md)
 - [FAQ](docs/portuguese/faq.md)
 
-## 🎯 Por Que Esse Workflow?
+## 🎯 Why This Workflow?
 
 ### Philosophy
 
-Pster's AI Workflow segue uma mentalidade **Spec-Driven Development** inspirada em **Extreme Programming (XP)**:
+Pster's AI Workflow follows a **Spec-Driven Development** mindset inspired by **Extreme Programming (XP)**:
 
-- **Entrega incremental rápida** (lotes pequenos, feedback curto)
-- **Rigor dinâmico** (leve quando simples, profundo quando risco é alto)
-- **Execução previsível** (fluxo explícito comando por comando)
-- **Contexto primeiro** para reduzir alucinações
-- **Preservação de padrões** através de leitura/ atualização obrigatória de docs
+- **Fast incremental delivery** (small batches, short feedback loops)
+- **Dynamic rigor** (lightweight when simple, deeper when risk is higher)
+- **Predictable execution** (explicit command-by-command flow)
+- **Context-first implementation** to reduce hallucination
+- **Standard preservation** through mandatory docs reads/updates
 
-### Diferenciais
+### Differentiators
 
-- **Desenvolvedor controla o caminho** - AI não escolhe sozinho, você decide o passo
-- **AI executa com rigor** - Após escolher o caminho, AI segue regras estruturadas
-- **Docs como memória de runtime** - Não são artefatos opcionais, são gerados/mantidos durante entrega
-- **Mesmo fluxo que se adapta** - Roda leve ou pesado sem mudar filosofia
+- **Developer-controlled path** - AI doesn't choose automatically; you decide the next step
+- **AI-executed rigor** - Once the path is chosen, AI follows structured guardrails
+- **Docs as runtime memory** - Not optional artifacts; generated and maintained during delivery
+- **Same flow that adapts** - Runs light or heavy without changing philosophy
 
-### Para Quem Serve
+### Who It's For
 
-- **Equipes de desenvolvimento** que querem previsibilidade
-- **Projetos ágeis** que precisam de execução estruturada
-- **Arquitetos e engenheiros** que valorizam documentação como código
-- **Equipes híbridas** (desenvolvedores + AI assistentes)
+- **Development teams** who want predictability
+- **Agile projects** needing structured execution
+- **Architects and engineers** who value docs as code
+- **Hybrid teams** (developers + AI assistants)
 
 ## 🌍 Community
 

@@ -10,7 +10,7 @@ Este workflow recomenda uma **topologia de projeto em duas pastas**:
 Separar repositorios de codigo do contexto de workflow melhora clareza operacional:
 
 - codigo fica isolado de metadados e artefatos de docs,
-- docs e instrucoes `.cursor` ficam centralizadas,
+- docs e contexto de editor ficam centralizados,
 - projetos multi-repo ficam mais simples de navegar em uma unica janela do editor.
 
 ## Layout recomendado
@@ -22,12 +22,13 @@ Separar repositorios de codigo do contexto de workflow melhora clareza operacion
     backend/
   <NomeProjeto>_Workspace/
     docs/
-    .cursor/
-    .claude/
+    <configuracao-editor>/
+      .opencode/ (se usando OpenCode)
+      .windsurf/ (se usando Windsurf)
     <NomeProjeto>.code-workspace
 ```
 
-## Como usar no Cursor/VS Code
+## Como usar no OpenCode/Windsurf
 
 1. Abra `<NomeProjeto>_Workspace/<NomeProjeto>.code-workspace`.
 2. Trabalhe nesse workspace multi-root:

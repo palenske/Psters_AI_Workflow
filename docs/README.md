@@ -18,8 +18,6 @@
 - Getting started (PT-BR): `portuguese/getting-started.md`
 - Suggested project structure (EN): `english/suggested-project-structure.md`
 - Estrutura de projeto sugerida (PT-BR): `portuguese/suggested-project-structure.md`
-- Cursor + WSL on Windows (EN): `english/cursor-wsl-windows.md`
-- Cursor + WSL no Windows (PT-BR): `portuguese/cursor-wsl-windows.md`
 - Command recipes (EN): `english/command-recipes.md`
 - Command recipes (PT-BR): `portuguese/command-recipes.md`
 - Command naming convention (EN): `english/command-naming-convention.md`

@@ -35,7 +35,7 @@ Each layer has a different job.
 
 ## Commands: the orchestration layer
 
-Commands live in `plugins/psters-ai-workflow/commands/`.
+Commands live in `.opencode/commands/` (or `.windsurf/commands/`).
 
 They are user entry points (`/pwf-*`) that:
 
@@ -47,7 +47,11 @@ Commands answer: "What flow should run now?"
 
 ## Rules: the policy layer
 
-Rules live in `.cursor/rules/` and `plugins/psters-ai-workflow/rules/`.
+Rules live in `.opencode/AGENTS.md` (or `.windsurf/AGENTS.md`), which provides:
+- Operational guardrails
+- Commit standards
+- Migration discipline
+- Build policies
 
 Rules are persistent constraints that shape behavior regardless of prompt style:
 

@@ -4,6 +4,25 @@ All notable changes to this project will be documented in this file.
 
 The format is inspired by Keep a Changelog.
 
+## [2.0.0] - 2026-05-27
+
+### Changed
+
+- **Repository focus shift**: Official support narrowed to **Opencode** (canonical) and **Windsurf** (derivative). Removed all references to Cursor, Claude Code, and Trae from documentation.
+- **Cleaned legacy references**: Updated all documentation to remove Cursor-specific instructions, WSL setups, and editor-specific paths.
+- **Documentation consolidation**: Updated FAQ, getting-started, suggested-project-structure, and under-the-hood to focus on Opencode/Windsurf workflows.
+- **Links updated**: All references to legacy Cursor documentation now point to current getting-started guides.
+
+### Removed
+
+- All Cursor-specific documentation and setup instructions.
+- Cursor and Claude Code references from main README, docs, and metadata.
+
+### Added
+
+- Clear statement that Opencode is the canonical repository for this workflow.
+- Explicit documentation that Windsurf is a supported derivative using `.windsurf/` structure.
+
 ## [1.1.0] - 2026-05-05
 
 ### Changed

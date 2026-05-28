@@ -10,10 +10,10 @@ Este guia ajuda voce a executar o workflow de ponta a ponta pela primeira vez, c
 
 ## 1) Instalar plugin localmente
 
-1. `./scripts/install-plugin-local.sh`
-2. Reinicie o Cursor (ou recarregue a janela).
+ 1. `./scripts/install-plugin-local.sh`
+ 2. Reinicie seu editor (OpenCode ou Windsurf).
 
-**Windows + WSL:** Se voce instalou no WSL mas o plugin nao aparece no Cursor Windows, veja [Cursor no Windows + WSL](cursor-wsl-windows.md).
+**Windows + WSL:** Se voce instalou no WSL mas o plugin nao aparece, veja [Comece em 10 Minutos](getting-started.md) para instruções de configuracao.
 
 ## 2) Inicializar esqueleto de docs no projeto
 

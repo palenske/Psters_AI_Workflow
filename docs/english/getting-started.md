@@ -10,10 +10,10 @@ This guide helps you run the workflow end-to-end for the first time without losi
 
 ## 1) Install plugin locally
 
-1. `./scripts/install-plugin-local.sh`
-2. Restart Cursor (or reload window).
+ 1. `./scripts/install-plugin-local.sh`
+ 2. Restart your editor (OpenCode or Windsurf).
 
-**Windows + WSL:** If you installed from WSL but the plugin does not appear in Cursor on Windows, see [Cursor on Windows + WSL](cursor-wsl-windows.md).
+**Windows + WSL:** If you installed from WSL but the plugin is not visible, see [Getting Started](getting-started.md).
 
 ## 2) Initialize project docs skeleton
 

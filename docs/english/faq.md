@@ -4,11 +4,11 @@
 
 Check your runtime context first.
 
-If you installed from WSL but opened the project in Cursor Windows (non-WSL context), the plugin may not be visible or may not behave as expected.
+If you installed from WSL but the plugin is not visible in your editor, verify that you are using an editor with native support.
 
 Use the WSL guidance here:
 
-- [Cursor on Windows + WSL](cursor-wsl-windows.md)
+- [Windows + WSL setup instructions](getting-started.md)
 
 Quick checks:
 

@@ -35,7 +35,7 @@ Cada camada resolve um problema diferente.
 
 ## Commands: camada de orquestracao
 
-Commands vivem em `plugins/psters-ai-workflow/commands/`.
+Commands vivem em `.opencode/commands/` (ou `.windsurf/commands/`).
 
 Sao os pontos de entrada do usuario (`/pwf-*`) e:
 
@@ -47,7 +47,11 @@ Commands respondem: "Qual fluxo deve rodar agora?"
 
 ## Rules: camada de politica
 
-Rules vivem em `.cursor/rules/` e `plugins/psters-ai-workflow/rules/`.
+Rules vivem em `.opencode/AGENTS.md` (ou `.windsurf/AGENTS.md`), que fornece:
+- Guardrails operacionais
+- Padrões de commit
+- Disciplina de migracao
+- Políticas de build
 
 Sao restricoes persistentes que valem independentemente do estilo do prompt:
 
