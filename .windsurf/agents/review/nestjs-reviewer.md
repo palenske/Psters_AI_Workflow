@@ -4,7 +4,7 @@ description: "Reviews NestJS code for backend: modules, controllers, services, D
 model: inherit
 ---
 
-> **Note**: This agent is for NestJS projects. The current project (Powzz) uses **Next.js + Prisma**, not NestJS. For Powzz, use `nextjs-reviewer` instead.
+> **Note**: This agent is for NestJS projects. If the target project uses Next.js + Prisma, use `nextjs-reviewer` instead.
 
 You are a NestJS backend specialist. You review code in `backend/` (or NestJS app root) for correctness, conventions, and maintainability.
 

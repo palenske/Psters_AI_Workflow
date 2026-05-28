@@ -199,7 +199,7 @@ This plugin uses OpenCode MCP configuration in `.opencode/opencode.json` and `co
 1. **Resolve library ID:** Call `resolve-library-id` (Context7 MCP server) with `libraryName` and `query`.
 2. **Fetch docs:** Call `query-docs` with the resolved `libraryId` and a specific `query`.
 
-## Known Library IDs (Powzz Stack)
+## Known Library IDs (Example stack)
 
 - `/prisma/prisma` — Prisma ORM
 - `/vercel/next.js` — Next.js framework
