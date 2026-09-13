@@ -28,7 +28,7 @@ No rationalization. No skipping because task looks "simple".
 3. Domain/convention skills:
    - `nestjs-conventions`
    - `angular-conventions`
-   - `aws-lambda-deploy`
+   - `deploy-lambda`
    - `commit-changes`
 
 ## Red flags

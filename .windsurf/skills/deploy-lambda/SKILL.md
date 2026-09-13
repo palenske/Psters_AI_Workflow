@@ -1,5 +1,5 @@
 ---
-name: aws-lambda-deploy
+name: deploy-lambda
 description: Deploy AWS Lambdas using the guaranteed deploy scripts only. Never deploy via IAC (CDK). Requires AWS SSO login first. Use when deploying any AWS Lambda repo.
 ---
 
