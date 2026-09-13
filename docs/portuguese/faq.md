@@ -51,7 +51,7 @@ E assim que os padroes do projeto se mantem ao longo do tempo.
 
 ## Hooks sao obrigatorios?
 
-Hooks sao guardrails recomendados. Eles reforcam disciplina e lembretes, mas o fluxo principal continua sendo pelos comandos.
+Nao. No OpenCode sao plugins reais (`.opencode/plugins/*.js`) que rodam automaticamente uma vez instalados, mas sao consultivos por padrao (avisos, nao bloqueios) — a unica excecao, bloquear commits sem prefixo de ticket, e opcional via `PWF_STRICT_COMMIT_CONVENTION=1`. No Windsurf, o sistema equivalente de `extensions/` e sempre apenas consultivo. De qualquer forma, o fluxo principal continua sendo pelos comandos.
 
 ## Esse workflow depende de linguagem/framework especifico?
 

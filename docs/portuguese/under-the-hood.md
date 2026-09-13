@@ -91,13 +91,18 @@ Agents respondem: "Qual especialista e melhor para esta subtarefa?"
 
 ## Hooks: camada de seguranca do ciclo de vida
 
-Hooks vivem em `plugins/psters-ai-workflow/hooks/`.
+No OpenCode, hooks sao plugins reais em `.opencode/plugins/*.js`, usando a
+API de plugins documentada do OpenCode (`tool.execute.before`,
+`tool.execute.after`, `event`). No Windsurf, o equivalente e o sistema
+`extensions/`, que e apenas consultivo (pode sugerir uma mensagem num ponto
+do ciclo de vida, mas nao executa codigo) — veja `hooks-reference.md` e
+`other-editors.md` para os detalhes especificos de cada plataforma.
 
 Sao verificacoes automaticas por evento:
 
 - apos edicao: rastrear se codigo e docs mudaram,
 - antes/depois de shell: lembrar convencoes criticas,
-- evento stop: alertar quando codigo mudou sem atualizacao de docs.
+- evento de fim de sessao: alertar quando codigo mudou sem atualizacao de docs.
 
 Hooks nao substituem commands. Eles reforcam disciplina em volta da execucao.
 

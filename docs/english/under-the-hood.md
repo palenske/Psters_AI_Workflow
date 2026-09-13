@@ -91,13 +91,18 @@ Agents answer: "Who is the best specialist for this subtask?"
 
 ## Hooks: the lifecycle safety layer
 
-Hooks live in `plugins/psters-ai-workflow/hooks/`.
+On OpenCode, hooks are real plugins living in `.opencode/plugins/*.js`,
+using OpenCode's documented plugin API (`tool.execute.before`,
+`tool.execute.after`, `event`). On Windsurf, the equivalent is the
+advisory-only `extensions/` system (it can suggest a message at a hook
+point but cannot execute code) — see `hooks-reference.md` and
+`other-editors.md` for the platform-specific details.
 
-Hooks are automatic event-driven checks:
+Hooks/plugins are automatic event-driven checks:
 
 - after edits: track whether code and docs changed,
 - before/after shell commands: remind critical conventions,
-- stop event: warn when docs were skipped after code edits.
+- session-idle event: warn when docs were skipped after code edits.
 
 Hooks do not replace commands. They reinforce discipline around command execution.
 

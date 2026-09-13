@@ -1,0 +1,10 @@
+{
+  "name": "psters-ai-workflow-repo-tooling",
+  "private": true,
+  "description": "Maintainer tooling for this repo (tests, badge/parity checks). Not consumed by OpenCode or Windsurf at runtime.",
+  "scripts": {
+    "test": "node --test tests/**/*.test.mjs",
+    "check:badges": "node scripts/check-readme-badges.mjs",
+    "check:parity": "node scripts/check-platform-parity.mjs"
+  }
+}

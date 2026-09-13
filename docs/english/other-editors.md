@@ -12,7 +12,7 @@ Both platforms provide native slash command support, specialized agents, reusabl
 |---------|----------|----------|
 | Native slash commands | ✅ | ✅ |
 | Rules / global context | ✅ `.windsurf/rules/` + `AGENTS.md` | ✅ `.opencode/AGENTS.md` |
-| Lifecycle hooks | ✅ extensions system | ✅ embedded in commands |
+| Lifecycle hooks | ✅ extensions system (advisory-only) | ✅ `.opencode/plugins/` (real, script-executing) |
 | Sub-agents (parallel research) | ✅ | ✅ via `@agent` mention |
 | Skills auto-discovery | ✅ | ✅ |
 | MCP integration | ✅ `mcp.json` | ✅ `opencode.json` |
@@ -111,6 +111,7 @@ Invoke subagents via `@` mention:
 - **Agents work as subagents.** Defined in `.opencode/agents/`, invoked via `@agent-name`.
 - **Skills are auto-discovered.** `.opencode/skills/` are loaded on demand via the `skill` tool.
 - **MCP integration configured.** Context7 is set up via `.opencode/opencode.json`.
+- **Plugins run real hooks.** `.opencode/plugins/*.js` execute on real OpenCode events (`tool.execute.before/after`, `event`) — see `hooks-reference.md`.
 
 ### Keeping up to date
 

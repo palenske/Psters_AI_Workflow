@@ -4,6 +4,69 @@ All notable changes to this project will be documented in this file.
 
 The format is inspired by Keep a Changelog.
 
+## [2.1.0] - 2026-09-12
+
+### Fixed
+
+- **Real OpenCode hooks, replacing dead code.** `docs/*/hooks-reference.md` and
+  `docs/*/under-the-hood.md` described a hook system living in
+  `plugins/psters-ai-workflow/hooks/` (`track-edit.mjs`, `doc-guard-stop.mjs`,
+  `commit-convention-reminder.mjs`, `migration-atomic-reminder.mjs`). That
+  directory was deleted in v1.1.0 along with `plugins/`, and none of those
+  files existed anywhere in the repo since — the "hooks" system was pure
+  documentation with nothing behind it, and `.opencode/README.md` had
+  separately (and correctly) noted "OpenCode doesn't have an extensions hook
+  system", contradicting the other docs. Replaced with three real, tested
+  OpenCode plugins in `.opencode/plugins/` (`docs-memory-guard.js`,
+  `commit-convention-guard.js`, `typeorm-migration-guard.js`), built on
+  OpenCode's actual plugin API (`tool.execute.before`, `tool.execute.after`,
+  `event`). All hooks/plugins docs (EN + PT) updated to match reality.
+- **Dead test suites replaced with real ones.** `tests/hooks/
+  hooks-regression.test.mjs` spawned five scripts that didn't exist, under a
+  `CURSOR_PLUGIN_ROOT` env var left over from before v1.1.0; it was never
+  wired into CI, so it had been silently rotting. `tests/scripts/
+  release-script-guardrails.test.mjs` asserted the existence of a
+  `scripts/release-plugin.sh` that also never existed. Both removed and
+  replaced with tests that exercise real files: `tests/plugins/
+  plugins-regression.test.mjs`, `tests/agents/
+  agent-permission-frontmatter.test.mjs`, `tests/scripts/
+  badge-consistency-guardrails.test.mjs`, `tests/scripts/
+  resolve-workflow-extensions.test.mjs`, `tests/scripts/
+  platform-parity.test.mjs`.
+- **`scripts/resolve-workflow-extensions.mjs` pointed at a dead path.** It
+  read `plugins/psters-ai-workflow/extensions/extensions.json`, the same
+  removed directory above, so it always crashed. Fixed to read the real
+  `.windsurf/extensions/extensions.json` (this is a Windsurf-only, advisory
+  concept), with a `WORKFLOW_EXTENSIONS_PATH` override.
+- **README badges were stale.** `agents` badge said 46, actual count was 51;
+  `skills` badge said 21, actual count was 23. Fixed, and added
+  `scripts/check-readme-badges.mjs` (with `--fix`) plus a CI check so this
+  can't silently drift again.
+- **CI ran nothing.** The only workflow was `sync-wiki.yml`; the test suite
+  above was never executed automatically. Added `.github/workflows/
+  tests.yml`, which runs `npm test`, the badge check, and the platform
+  parity report on every push/PR.
+
+### Added
+
+- **Enforced agent permissions.** Every one of the 51 `.opencode/agents/*`
+  files now declares an explicit `tools:`/`permission:` policy in its
+  frontmatter (OpenCode's documented agent schema). `research/*` and
+  `review/*` agents are now read-only at the OpenCode permission level
+  (`edit: deny`), not just by prompt instruction — see
+  `scripts/apply-agent-permission-defaults.mjs` for the policy table
+  (idempotent, safe to re-run after adding new agents).
+- **`scripts/check-platform-parity.mjs`.** `.opencode/` and `.windsurf/` are
+  hand-maintained duplicates, not generated from one source, and had already
+  drifted (three skills — `bullmq`, `prisma`, `typeorm` — exist only in
+  `.opencode/`). Rather than risk an automated merge that could silently
+  degrade whichever side wasn't canonical for a given file, this script
+  reports orphaned and diverged files so a maintainer can reconcile them
+  deliberately.
+- `package.json` at the repo root with `npm test` / `npm run check:badges` /
+  `npm run check:parity`, purely for maintainers — not consumed by OpenCode
+  or Windsurf at runtime.
+
 ## [2.0.0] - 2026-05-27
 
 ### Changed

@@ -51,7 +51,7 @@ This is how project standards remain stable over time.
 
 ## Are hooks mandatory?
 
-Hooks are recommended guardrails. They reinforce discipline and reminders, but core workflow still happens through commands.
+No. On OpenCode they're real plugins (`.opencode/plugins/*.js`) that run automatically once installed, but they're advisory by default (warnings, not blocks) — the one exception, blocking commits without a ticket prefix, is opt-in via `PWF_STRICT_COMMIT_CONVENTION=1`. On Windsurf, the equivalent `extensions/` system is always advisory-only. Either way, core workflow still happens through commands.
 
 ## Is this workflow tied to a specific language/framework?
 
