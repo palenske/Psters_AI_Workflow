@@ -12,7 +12,7 @@
   <img src="https://img.shields.io/badge/commands-20-7c3aed?style=for-the-badge" alt="Commands: 20">
   <img src="https://img.shields.io/badge/agents-46-2563eb?style=for-the-badge" alt="Agents: 46">
   <img src="https://img.shields.io/badge/rules-10-f59e0b?style=for-the-badge" alt="Rules: 10">
-  <img src="https://img.shields.io/badge/skills-21-16a34a?style=for-the-badge" alt="Skills: 21">
+  <img src="https://img.shields.io/badge/skills-27-16a34a?style=for-the-badge" alt="Skills: 27">
   <img src="https://img.shields.io/badge/canonical--repo-1-2563eb?style=for-the-badge" alt="Canonical: Opencode">
 </p>
 <p align="center">

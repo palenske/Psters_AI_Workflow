@@ -22,13 +22,14 @@ If any criterion fails, use `/pwf-work` or `/pwf-work-plan` instead.
 
 1. Apply `skills/docs-baseline-loading/SKILL.md` and execute baseline loading before coding.
 2. Read `docs/solutions/patterns/critical-patterns.md` (if exists), directly relevant module/feature doc, and `docs/runbooks/README.md` when operational behavior is touched.
-3. Implement targeted change.
-4. Run minimal verification command(s) relevant to the change.
-5. Run focused documentation check:
+3. **If the change is UI/cosmetic (styles, components, copy on a page):** apply `skills/taste-skill/SKILL.md` for the touched surface (and `skills/awesome-design-md/SKILL.md` first if project root has `DESIGN.md`). For pure trivial CSS fixes the taste-skill pre-flight rules alone are enough — no need for a full design read.
+4. Implement targeted change.
+5. Run minimal verification command(s) relevant to the change.
+6. Run focused documentation check:
    - update docs only if contract/behavior changed,
    - otherwise report "no doc impact" with reason.
    Work commands update docs as part of the workflow; use `/pwf-doc` or `/pwf-doc-capture` for explicit scope-targeted documentation.
-6. Finish with verification evidence.
+7. Finish with verification evidence.
 
 ## Verification Evidence Format
 

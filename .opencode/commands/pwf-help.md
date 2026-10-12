@@ -64,11 +64,14 @@ Use this map when the user asks how the plugin pieces connect:
 - `workflows/` — user entry points (`/pwf-*`). They orchestrate the workflow.
 - `AGENTS.md` — guardrails applied during execution (naming, migrations, docs policy, safety).
 - `skills/` — reusable procedural playbooks invoked by workflows (debugging, verification, commit orchestration).
-- `agents/` — specialized subagent definitions that workflows spawn for focused work (research, review, docs, workflow sync).
+- **Design skills** — `taste-skill` (anti-slop frontend rules), `web-design-guidelines` (UI/a11y audit), `awesome-design-md` (brand `DESIGN.md` systems). Work commands auto-load them for UI tasks; design agents require them.
+- `agents/` — specialized subagent definitions that workflows spawn for focused work (research, review, docs, workflow sync, design).
 - `assets/` — supporting resources (review agent selection mapping, documentation playbooks).
 
 Execution model in practice:
 `workflow` -> applies `rules` -> may call `skills` -> may execute `agents` -> `extensions` provide advisory guidance at lifecycle events.
+
+Design pass (UI features): `awesome-design-md` (tokens) → `taste-skill` (structure) → build → `web-design-guidelines` (audit) → design agents on demand.
 
 ## Next Recommended Commands
 

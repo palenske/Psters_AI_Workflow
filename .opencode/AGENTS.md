@@ -58,6 +58,22 @@ Reusable skills in `.opencode/skills/`:
 - Documentation maintenance and baseline loading
 - Test-driven development (opt-in)
 
+**Design & UI Quality:**
+- `taste-skill` — anti-slop frontend discipline for landing pages, portfolios, and redesigns (brief inference, design-system mapping, layout/motion/typography rules, pre-flight check). Vendored from tasteskill.dev.
+- `web-design-guidelines` — post-build UI/a11y compliance review against Vercel's Web Interface Guidelines (fetches rules at review time, `file:line` findings). Vendored from vercel-labs/agent-skills.
+- `awesome-design-md` — brand-matching UI via root `DESIGN.md` files (VoltAgent/awesome-design-md + Google Stitch format): select/author a design system, install it at project root, build and verify against its tokens.
+- `visual-brainstorm-companion` — visual artifacts and design-agent orchestration during brainstorm.
+- Design skills compose: `awesome-design-md` (brand tokens) → `taste-skill` (structure/anti-slop) → build → `web-design-guidelines` (audit); design agents (`agents/design/*`) on demand.
+
+**Design skill loading policy (mandatory):**
+- Whenever work (command or agent) touches UI/frontend/components/styles/landing/redesign, load the plugin design skills before implementing or reviewing:
+  1. `skills/awesome-design-md/SKILL.md` — only if project root has `DESIGN.md` or a brand aesthetic is in play
+  2. `skills/taste-skill/SKILL.md` — always for UI work
+  3. `skills/web-design-guidelines/SKILL.md` — after implementation/fixes, as the compliance audit (work commands and `/pwf-review` run it on changed UI files)
+- Design agents (`agents/design/*`) MUST load this stack themselves; it is written into their prompts.
+- **Precedence:** these plugin design skills take precedence over generic/global design guidance when both are available. Do not skip them in favor of older or broader design skills.
+- Record the design read (and DESIGN.md source, if any) in plans/brainstorms so execution inherits the same direction.
+
 ## Multi-agent Orchestration
 
 Parallel subagents are encouraged when tasks are independent.

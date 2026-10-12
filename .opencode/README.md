@@ -80,7 +80,7 @@ After placing `.opencode/` in your project, the commands become available via `/
 │   ├── workflow/          # 5 agents: workflow orchestration
 │   └── design/            # 3 agents: UI/UX design
 ├── commands/              # 20 workflow commands (pwf-*)
-└── skills/                # 21 reusable skills
+└── skills/                # 27 reusable skills
 ```
 
 ## Core Principles
@@ -111,6 +111,22 @@ Agents can be invoked by @mentioning them in your messages:
 ```
 
 Or use them as subagents within workflows — commands automatically spawn the appropriate agents.
+
+## Design Layer
+
+UI work is instrumented by three design skills plus three design agents:
+
+| Piece | Role |
+| --- | --- |
+| `skills/taste-skill` | Anti-slop frontend rules (brief → design read → dials → pre-flight). Vendored from [tasteskill.dev](https://www.tasteskill.dev/). |
+| `skills/web-design-guidelines` | Compliance audit against Vercel Web Interface Guidelines. Vendored from [vercel-labs/agent-skills](https://github.com/vercel-labs/agent-skills). |
+| `skills/awesome-design-md` | Brand-matching UI via root `DESIGN.md` (VoltAgent collection / Google Stitch format). |
+| `skills/visual-brainstorm-companion` | Visual artifacts + design-agent orchestration during brainstorm. |
+| `agents/design/design-iterator` | Iterative layout refinement. |
+| `agents/design/figma-design-sync` | Figma-to-code comparison. |
+| `agents/design/design-implementation-reviewer` | Live UI vs design-spec discrepancy report (read-only). |
+
+Recommended full pass: `awesome-design-md` (tokens) → `taste-skill` (structure) → build → `web-design-guidelines` (audit) → design agents on demand.
 
 ## Anti-Vibe Coding
 

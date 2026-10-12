@@ -100,6 +100,10 @@ Before Step 1 execution details, note that the `docs-memory-guard` plugin (`.ope
    - Entity changes detected → **migration-impact-planner** (`.opencode/agents/research/migration-impact-planner.md`)
    - Multi-step or UI flows → **spec-flow-analyzer** (`.opencode/agents/workflow/spec-flow-analyzer.md`)
    - Security, payments, new tech → **best-practices-researcher** (`.opencode/agents/research/best-practices-researcher.md`), **framework-docs-researcher** (`.opencode/agents/research/framework-docs-researcher.md`)
+   - **UI/frontend/landing/redesign work detected → load the design skill stack (REQUIRED, before Step 2):**
+     1. If project root has `DESIGN.md` (or user named a brand aesthetic) → apply `skills/awesome-design-md/SKILL.md`
+     2. Always → apply `skills/taste-skill/SKILL.md` (design read + dials + layout discipline)
+     These plugin design skills take precedence over generic/global design guidance. Carry the design read and any DESIGN.md tokens into Step 2/3 task derivation.
 
 6. **Present research summary to user:** Before implementing, show:
    - Files that will be changed (from research)
@@ -148,6 +152,15 @@ For each task:
 
 Follow the migration discipline from the relevant skill (e.g., `skills/typeorm/SKILL.md` or `skills/prisma/SKILL.md`) for your ORM (generate -> drift-check -> local run). Treat this as blocking. Do not continue other tasks until the chain succeeds.
 
+### ⚠️ Design skill stack (when UI/frontend tasks are in scope)
+
+If any task touches UI/components/pages/styles and the stack was not loaded in Step 1:
+
+1. `skills/awesome-design-md/SKILL.md` — if `DESIGN.md` exists at project root or a brand reference applies
+2. `skills/taste-skill/SKILL.md` — always for UI work
+
+Implement consistently with those skills. When spawning design agents (`design-iterator`, `figma-design-sync`, `design-implementation-reviewer`), pass the design read / DESIGN.md context into the task prompt.
+
 After all tasks:
 - **TypeScript Validation** — Run `npm run validate` (or `tsc --noEmit` if no validate script). Fix ALL type/lint errors.
 - **Build Only When Explicit** — Full build (`npm run build`) only runs when explicitly requested by user or during deployment workflows.
@@ -163,6 +176,7 @@ If triggered, execute review agents by reading and applying their instructions:
 1. Read `.opencode/assets/review-agent-selection-mapping.md` to select applicable agents based on changed scope.
 2. For each selected agent, read its agent file and execute the review instructions.
 3. You can read multiple agent files in parallel.
+4. **If any UI/frontend files changed:** before synthesizing, apply `skills/web-design-guidelines/SKILL.md` on the changed UI files and include its findings in the review output (compliance audit runs alongside design agents selected by the mapping).
 
 Address **critical** findings only. Informational findings are noted but don't block.
 

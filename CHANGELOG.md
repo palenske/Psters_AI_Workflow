@@ -4,6 +4,61 @@ All notable changes to this project will be documented in this file.
 
 The format is inspired by Keep a Changelog.
 
+## [2.2.0] - 2026-10-12
+
+### Added
+
+- **Design layer instrumented with three skills** (`.opencode/skills/`, OpenCode-only):
+  - `taste-skill` — full anti-slop frontend playbook vendored from
+    [tasteskill.dev](https://www.tasteskill.dev/)
+    (`Leonxlnx/taste-skill`, `design-taste-frontend` v2, MIT). Brief
+    inference, three dials, design-system mapping, typography/color/layout
+    hard rules, motion skeletons, pre-flight check. Frontmatter name aligned
+    to directory (`taste-skill`); body is upstream content plus provenance note.
+  - `web-design-guidelines` — UI/a11y audit skill vendored from
+    `vercel-labs/agent-skills` (MIT). Fetches Vercel Web Interface Guidelines
+    at review time and emits `file:line` findings. Description extended with
+    plugin trigger phrases; body is upstream content plus provenance note.
+  - `awesome-design-md` — brand-matching UI workflow adapted from
+    `VoltAgent/awesome-design-md` (MIT) + Google Stitch DESIGN.md spec.
+    Select a brand analysis from the collection (or author a custom
+    `DESIGN.md`), install it at project root, build from its tokens, verify
+    against its do's/don'ts. Documents composition order with `taste-skill`,
+    `web-design-guidelines`, and `agents/design/*`.
+- **Design Layer section** in `.opencode/README.md` and a **Design & UI
+  Quality** block in `.opencode/AGENTS.md` skills list, documenting the
+  recommended full pass:
+  `awesome-design-md` → `taste-skill` → build → `web-design-guidelines` →
+  design agents on demand.
+- **Design skill wiring so the stack is actually used** (not just present):
+  - All three `agents/design/*` agents now have a **mandatory skill stack**
+    in their prompts (awesome-design-md when DESIGN.md/brand applies →
+    taste-skill always → web-design-guidelines after final pass). The
+    "no left border bars" hard rule is softened to defer to
+    DESIGN.md/taste-skill when those explicitly require a different pattern.
+  - Work commands auto-load the stack for UI scope:
+    `/pwf-work` (Step 1 conditional + Step 3 + Step 4 audit),
+    `/pwf-work-plan` (Step 2 + Step 3 audit), `/pwf-work-light` (cosmetic
+    UI path), `/pwf-brainstorm` (UX-relevant research + Phase 3.5),
+    `/pwf-plan` (section 2e records design read in plans),
+    `/pwf-review` (web-design-guidelines on UI diffs + design-skill preload
+    before design agents).
+  - `assets/review-agent-selection-mapping.md` gained a **Design skill
+    stack** note; `skills/visual-brainstorm-companion` loads design skills
+    before spawning design agents; `/pwf-help` documents the design pass.
+  - `AGENTS.md` gained a **Design skill loading policy (mandatory)**
+    including precedence: plugin design skills win over generic/global
+    design guidance when both are available.
+
+### Notes
+
+- Skills are `.opencode/`-only for now (parity orphans, same policy as
+  `bullmq`/`prisma`/`typeorm`); `tests/scripts/platform-parity.test.mjs`
+  continues to pass unchanged.
+- Badge counts updated: `skills` 24 → 27 (README.md, README-EN.md);
+  `.opencode/README.md` structure note 21 → 27 (also fixed the stale "21"
+  alt-text that predated the 2.1.0 badge fix).
+
 ## [2.1.0] - 2026-09-12
 
 ### Fixed

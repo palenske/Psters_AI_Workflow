@@ -25,3 +25,13 @@ Use this mapping to choose review agents consistently based on change scope.
 - Use collision-safe naming when spawning: `psters-ai-workflow:<category>:<agent-name>`.
 - Run selected agents in parallel.
 - Fix critical findings first; then rerun focused reviewers as needed.
+
+## Design skill stack (mandatory when UI is in scope)
+
+Whenever any row above selects a design agent (`design-implementation-reviewer`, `design-iterator`, `figma-design-sync`) **or** the change touches frontend/UI files, load the plugin design skills first — in this order — before running those agents:
+
+1. `skills/awesome-design-md/SKILL.md` — if project root has `DESIGN.md` or a brand reference is in play
+2. `skills/taste-skill/SKILL.md` — always for UI work (structure, anti-slop, pre-flight)
+3. `skills/web-design-guidelines/SKILL.md` — after implementation/fixes, as the compliance audit
+
+Plugin design skills take precedence over generic/global design guidance. Design agents must not skip this stack.

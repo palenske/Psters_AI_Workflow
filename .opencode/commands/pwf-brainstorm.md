@@ -71,6 +71,10 @@ Execute the core research agents by reading and applying their instructions. Pas
   - `api-contract-designer` (`.opencode/agents/research/api-contract-designer.md`)
 - If user-facing UI/UX is relevant:
   - `ux-consistency-reviewer` (`.opencode/agents/research/ux-consistency-reviewer.md`)
+  - **Also load the design skill stack (REQUIRED for UI features):**
+    1. If the brief names a brand aesthetic or project has `DESIGN.md` → apply `skills/awesome-design-md/SKILL.md`
+    2. Always → apply `skills/taste-skill/SKILL.md`
+    Capture the resulting design read / brand direction as a Key Decision in Phase 4 so `/pwf-plan` and execution inherit it.
 - If async/serverless/evented flow is relevant:
   - `lambda-pipeline-analyst` (`.opencode/agents/research/lambda-pipeline-analyst.md`)
 - If security/compliance boundaries are material:
@@ -97,6 +101,8 @@ Ask them **one at a time**, with **multiple choice answers** when possible. Cont
 ## Phase 3.5: Optional Visual Companion (ONLY when useful)
 
 If the feature is strongly visual (complex UI, flow comparison, interaction-heavy), use `skills/visual-brainstorm-companion/SKILL.md` and create one focused visual artifact (browser/canvas) to support decisions.
+
+Before spawning design agents in this phase, load the design skill stack (`skills/awesome-design-md/SKILL.md` if applicable, then `skills/taste-skill/SKILL.md`) so agents and visuals share the same design read and tokens.
 
 Skip this phase for backend-only or text-first discussions.
 

@@ -27,8 +27,9 @@ First inspect which repos/files were changed. Then execute all applicable review
 2. Always include the baseline reviewers from the mapping.
 3. If reviewer feedback comments are provided as input, also execute `pr-comment-resolver` (`.opencode/agents/workflow/pr-comment-resolver.md`) to propose/implement fixes.
 4. If major TypeScript/JS changes are present, include the `lint` reviewer agent (`.opencode/agents/workflow/lint.md`) in the review loop.
-5. For each selected agent, read its agent file and execute the review instructions with the full diff content and changed file list.
-6. You can read multiple agent files in parallel.
+5. **If any UI/frontend files are in the diff:** apply `skills/web-design-guidelines/SKILL.md` on those files (fetch latest rules; emit `file:line` findings). When design agents are selected by the mapping, load `skills/awesome-design-md/SKILL.md` (if `DESIGN.md` exists) and `skills/taste-skill/SKILL.md` first so design agents inherit the plugin design stack — these skills take precedence over generic/global design guidance.
+6. For each selected agent, read its agent file and execute the review instructions with the full diff content and changed file list.
+7. You can read multiple agent files in parallel.
 
 ## Synthesize
 

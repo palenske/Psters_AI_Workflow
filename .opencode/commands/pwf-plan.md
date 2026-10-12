@@ -145,6 +145,14 @@ Consolidate all findings: exact file paths, method names, learnings, conventions
 - Document response shape of the new API and mapping to the shape the UI expects.
 - Include a mapping task in implementation.
 
+### 2e. When the feature has UI/frontend/landing/redesign work:
+- Load the design skill stack **before** writing tasks:
+  1. If project root has `DESIGN.md` or the brainstorm names a brand aesthetic → apply `skills/awesome-design-md/SKILL.md`
+  2. Always → apply `skills/taste-skill/SKILL.md`
+- Record in the plan's design/decisions section: the one-line design read, dial values (if taste-skill applies), and the DESIGN.md source (file path or brand slug/URL).
+- Add an explicit task (or phase note) that execution must re-apply the same design skill stack; reference this plan section in that task.
+- If a design audit is desired at review time, note that `/pwf-review` and work commands run `skills/web-design-guidelines/SKILL.md` on changed UI files.
+
 If none of the above apply, skip this step.
 
 ---

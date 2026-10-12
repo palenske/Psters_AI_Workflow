@@ -32,9 +32,12 @@ Ask: "Would a visual artifact (diagram, mockup, flow) change the decision?" If n
 | Need | Approach | Tool |
 |------|----------|------|
 | UI flow / page hierarchy | Mermaid diagram | `bash` → render to SVG via `mmdc` or inline in markdown |
+| Design direction / brand language decision | Design skill stack | load `skills/awesome-design-md/SKILL.md` (if DESIGN.md or brand reference) then `skills/taste-skill/SKILL.md` |
 | Figma-to-code comparison | Design sync agent | `task` → `design/figma-design-sync` |
 | Iterative layout refinement | Design iteration agent | `task` → `design/design-iterator` |
 | Architecture / data flow | Mermaid or ASCII diagram | `write` → `docs/brainstorms/` |
+
+When the brainstorm involves UI aesthetics, layout family, or brand look-and-feel, load the plugin design skills (`awesome-design-md` → `taste-skill`) **before** spawning design agents so agent work inherits the same design read and tokens.
 
 ### Step 3: Create the visual artifact
 

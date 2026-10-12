@@ -105,6 +105,17 @@ Playbook mapping:
 
 If user explicitly requested TDD for this phase, apply `skills/test-driven-development/SKILL.md` for relevant tasks only.
 
+### ⚠️ Design skill stack (when phase tasks touch UI/frontend)
+
+If the phase includes UI/components/pages/styles tasks:
+
+1. If project root has `DESIGN.md` (or the plan/brainstorm names a brand aesthetic) → apply `skills/awesome-design-md/SKILL.md`
+2. Always → apply `skills/taste-skill/SKILL.md`
+3. Implement UI tasks consistently with those skills; carry any design read from the plan/brainstorm forward
+4. When spawning design agents, pass DESIGN.md tokens / design read into the task prompt
+
+Plugin design skills take precedence over generic/global design guidance.
+
 ### ⚠️ CRITICAL: Database Migration Atomic Chain (when applicable)
 
 Follow the migration discipline from the relevant skill (e.g., `skills/typeorm/SKILL.md` or `skills/prisma/SKILL.md`) for your ORM (generate -> drift-check -> local run). Treat this as blocking. Do not continue other tasks until the chain succeeds.
@@ -134,6 +145,7 @@ If triggered, execute review agents by reading and applying their instructions:
 1. Read `.opencode/assets/review-agent-selection-mapping.md` to select applicable agents based on changed scope.
 2. For each selected agent, read its agent file and execute the review instructions.
 3. You can read multiple agent files in parallel.
+4. **If any UI/frontend files changed in this phase:** apply `skills/web-design-guidelines/SKILL.md` on those files and include findings in the review output.
 
 Address **critical** findings before finishing. Informational findings are noted but don't block.
 
